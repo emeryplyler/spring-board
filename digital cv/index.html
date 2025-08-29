@@ -1,0 +1,136 @@
+<!-- Formatted it using the Prettier extension in VS Code, so it looks very different from the last version -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Emery's Digital CV</title>
+    <!-- style sheet links go in the head -->
+    <link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+    <!-- make sure image isn't too wide -->
+    <img src="DSC02802.JPG" alt="Photo of Emery Plyler" id="profile-pic" />
+    <h1>Emery Plyler</h1>
+    <p id="contact-info">
+        <a href="mailto:emery.plyler@gmail.com">Email: emery.plyler@gmail.com</a><br />
+        <a href="tel:+19257865429">Phone Number</a>
+        <a href="https://eply.itch.io/">itch.io Page</a><br />
+        <a href="https://www.linkedin.com/in/emery-plyler-037301281/">LinkedIn Profile</a>
+    </p>
+    <p>
+        Recent graduate in Computer Science searching for a programming or development position. Experience with
+        multiple programming languages and multiple game engines.
+
+        <!-- start new section -->
+    </p>
+
+    <hr />
+
+    <div class="category">
+        <h3>Education</h3>
+        BS Computer Science: Game Design, University of California, Santa Cruz (GPA: 3.5)<br>
+        Springboard Software Engineering Certificate - February 2026: 9-month intensive course in Software Engineering
+        methodologies and technologies with 1:1 industry mentor oversight.
+    </div>
+
+    <div class="category">
+        <h3>Skills</h3>
+        <!-- using flexbox instead of table -->
+        <div id="skills">
+            <div id="skills-group">
+                <!-- each header and list pair are in divs together -->
+                <b id="skills-header">Languages</b>
+                <ul>
+                    <li>Python</li>
+                    <li>JavaScript</li>
+                    <li>C#</li>
+                    <li>C++</li>
+                    <li>Lua</li>
+                    <li>HTML</li>
+                </ul>
+            </div>
+
+            <div id="skills-group">
+                <b id="skills-header">Frameworks and Libraries</b>
+                <ul>
+                    <li>React.js</li>
+                    <li>REST API</li>
+                    <li>NPM</li>
+                </ul>
+            </div>
+
+            <div id="skills-group">
+                <b id="skills-header">Development Tools</b>
+                <ul>
+                    <li>Postman</li>
+                    <li>Visual Studio Code</li>
+                    <li>GitHub</li>
+                    <li>Linux</li>
+                </ul>
+            </div>
+
+            <div id="skills-group">
+                <b id="skills-header">Game Development</b>
+                <ul>
+                    <li>Unity</li>
+                    <li>Godot</li>
+                    <li>Unreal Engine</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="category">
+        <h3>Experience</h3>
+        <!-- separate out this part using p for spacing -->
+        <b>Current Role</b><br />Coding Coach at TheCoderSchool, San Ramon, CA (April 2024 - Present)
+        <ul>
+            <li>Teaching students software development through the process of building fully-functioning games</li>
+            <li>Guiding students in project planning, program design, feature implementation, prioritization, and
+                troubleshooting</li>
+            <li>Helping students learn programming with Python, Lua, and other tools</li>
+        </ul>
+
+        <b>Ongoing Personal Projects</b><br />Solo and group projects outside of school.
+        <ul>
+            <li>
+                Mythical creature wiki website built with React interacting with PostGres database of creature
+                information and
+                JavaScript API
+            </li>
+            <li>Generative 2D maze platformer with procedurally generated levels, end-to-end development in Godot and
+                Aseprite</li>
+            <li>
+                Cooking simulation game exploring new styles of gameplay and atmosphere. Using Godot game engine and
+                GDScript
+                Python-like language within a small team
+            </li>
+        </ul>
+
+        <b>University Project Experience</b><br />Numerous solo and group gaming projects. Gained proficiency in:
+        <ul>
+            <li>Fundamentals of programming and software development</li>
+            <li>Computer game theory and development from concept to deployment</li>
+            <li>Working in small teams, organizing projects, and ownership</li>
+            <li>Tracking project progress against deadlines and driving team communication</li>
+            <li>Project organization, scoping, planning, and management within teams</li>
+        </ul>
+    </div>
+
+    <div class="category">
+        <form>
+            <h3>Contact me!</h3>
+            <label> Name: <input type="text" name="name" required placeholder="Your name here..." /><br /> </label>
+            <label> Company: <input type="text" name="company" /><br /> </label>
+            <label> Email: <input type="email" name="email" /><br /> </label>
+            <label> Phone: <input type="tel" name="phone" /><br /> </label>
+            <textarea placeholder="What would you like to talk about?" maxlength="1000" minlength="30" cols="50"
+                rows="10" required></textarea><br />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+* {
+    /* use border box for everything */
+    box-sizing: border-box;
+}
+
+body {
+    /* background-color: #080512; */
+    /* no background color; use gradient instead */
+    background-image: linear-gradient(#080512, #151436);
+    color: #f1e8ed;
+    /* arial is clean and web-safe */
+    font-family: Arial, Helvetica, sans-serif;
+    /* spacing was too small, increase a little */
+    margin: 40px;
+    border: 2px solid #e691c6;
+    padding: 40px;
+    line-height: 27px;
+}
+
+#profile-pic {
+    width: 200px;
+    border: 4px solid #aef886;
+    /* fully round */
+    border-radius: 100%;
+}
+
+/* using flex box instead of table */
+#skills {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+/* get rid of indent */
+#skills ul {
+    padding: 0px;
+    text-align: center;
+}
+
+/* get rid of bullet points */
+#skills li {
+    list-style: none;
+}
+
+hr {
+    color: #f1e8ed;
+}
+
+/* make all the headers be highlight color */
+h1, h2, h3, h4 {
+    color:#e691c6;
+}
+
+/* do transitions only on larger screens */
+@media (min-width: 700px) {
+    h3 {
+        transition: color 300ms;
+    }
+
+    .category:hover h3 {
+        color: #52c779;
+    }
+}
+
+/* move name to center */
+h1 {
+    text-align: center;
+}
+
+/* move contact information to right */
+#contact-info {
+    text-align: right;
+    /* too close to name, add margin */
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+/* important text can be second highlight color */
+th, b, a:link {
+    color: #aef886;
+}
+
+/* visited links get darker */
+a:visited {
+    color: #52c779;
+}
+
+/* input boxes shouldn't be pure white
+use multiple selectors */
+input, textarea {
+    background-color: #a686cd;
+    border-width: 0px;
+    border-radius: 3px;
+    /* wasnt inheriting fonts for some reason, so here it is again */
+    font-family: Arial, Helvetica, sans-serif;
+    /* spacing was too small; may be able to fix later with flex box? */
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+input {
+    /* smooth out the edges */
+    padding: 3px;
+}
+
+button {
+    background-color: #52c779;
+    border-width: 0px;
+    color: #080512;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: background-color 300ms;
+}
+
+/* add feedback to the button */
+button:hover {
+    background-color: #14493f;
+    color: #f1e8ed;
+}
