@@ -3,23 +3,16 @@ pivot accepts an array, starting index, and ending index
 You can assume the pivot is always the first element
 */
 
-function pivot(arr, leftIndex, rightIndex)
+function pivot(arr)
 {
     // choose a pivot
-    let start = 0;
-    let end = arr.length;
-    if (leftIndex && rightIndex)
-    {
-        start = leftIndex;
-        end = rightIndex;
-    }
-    const pivot = arr[start];
+    const pivot = arr[0];
 
     const left = []; // less than or equal to
     const right = [];
 
     // for every other element:
-    for (let i = 1; i < end; i++)
+    for (let i = 1; i < arr.length; i++)
     {
         if (arr[i] <= pivot)
         {
@@ -54,33 +47,24 @@ function pivot(arr, leftIndex, rightIndex)
 quickSort accepts an array, left index, and right index
 */
 
-function quickSort(arr, leftIndex, rightIndex) 
+function quickSort(arr) 
 {
-    if (!leftIndex || !rightIndex)
+    if (arr.length <= 1)
     {
-        leftIndex = 0;
-        rightIndex = arr.length;
+        return arr; // short enough to count as sorted
     }
-    
-    if (leftIndex < rightIndex)
-    {
-        let pivotIndex = pivot(arr, leftIndex, rightIndex);
-        quickSort(arr, leftIndex, pivotIndex - 1);
-        quickSort(arr, pivotIndex + 1, rightIndex);
-    }
-    // if (arr.length <= 1)
-    // {
-    //     return;
-    // }
-    // const pivotIndex = pivot(arr);
-    // quickSort(arr.slice(0, pivotIndex + 1)); // when only two elements, not splitting into two
-    // quickSort(arr.slice(pivotIndex + 1, arr.length));
-    // return arr;
+    const pivotIndex = pivot(arr);
+    const pivotVal = arr[pivotIndex]; // save the value of the pivot
+
+    // split into two pieces based on the pivot
+    const left = quickSort(arr.slice(0, pivotIndex)); // don't include pivotIndex itself
+    const right = quickSort(arr.slice(pivotIndex + 1, arr.length));
+
+    // add the arrays back together
+    left.push(pivotVal); // left, then pivot, then right
+    arr = left.concat(right); // save changes to array
+
+    return arr;
 }
-
-// const a = [2, 3];
-// console.log(a.slice(0, 0));
-
-console.log(quickSort([4, 20, 12, 10, 7, 9]));
 
 module.exports = { pivot, quickSort };
