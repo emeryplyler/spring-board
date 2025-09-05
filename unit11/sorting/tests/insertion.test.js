@@ -1,4 +1,4 @@
-const insertionSort = require("./insertion")
+const insertionSort = require("../insertion")
 
 describe('insertionSort', function () {
   it('should exist', function () {

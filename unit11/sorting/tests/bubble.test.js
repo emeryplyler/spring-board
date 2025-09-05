@@ -1,4 +1,4 @@
-const bubbleSort = require("./bubble")
+const bubbleSort = require("../bubble")
 
 describe('bubbleSort', function () {
   it('should exist', function () {

@@ -1,4 +1,4 @@
-const { merge, mergeSort } = require("./merge")
+const { merge, mergeSort } = require("../merge")
 
 describe('merge', function () {
   it('should exist', function () {

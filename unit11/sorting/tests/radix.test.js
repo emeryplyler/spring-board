@@ -1,4 +1,4 @@
-const { getDigit, digitCount, mostDigits, radixSort } = require("./radix")
+const { getDigit, digitCount, mostDigits, radixSort } = require("../radix")
 
 describe("getDigit", function () {
   it("should exist", function () {

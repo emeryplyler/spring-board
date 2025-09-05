@@ -3,66 +3,54 @@ pivot accepts an array, starting index, and ending index
 You can assume the pivot is always the first element
 */
 
-function pivot(arr)
+function pivot(arr, startIndex = 0, endIndex = arr.length)
 {
-    // choose a pivot
-    const pivot = arr[0];
+    const pivot = arr[startIndex]; // choose a pivot
+    let pivotIndex = startIndex + 1; // where to put the pivot
 
-    const left = []; // less than or equal to
-    const right = [];
-
-    // for every other element:
-    for (let i = 1; i < arr.length; i++)
+    for (let i = startIndex + 1; i < endIndex; i++)
     {
-        if (arr[i] <= pivot)
+        // if current element less than pivot,
+        if (arr[i] < pivot)
         {
-            left.push(arr[i]);
-        }
-        else
-        {
-            right.push(arr[i]);
+            // swap current element with item at pivotIndex
+            let temp = arr[i];
+            arr[i] = arr[pivotIndex];
+            arr[pivotIndex] = temp;
+            // increment pivotIndex, since there's another item behind it now
+            pivotIndex++;
         }
     }
+    // put pivot next to pivot index
+    // this way, one of the smaller numbers will get rearranged to make room for the pivot
+    // the order of the smaller numbers doesn't matter right now, just that
+    // they're on the left of the pivot
+    let temp = arr[pivotIndex - 1];
+    arr[pivotIndex - 1] = pivot;
+    arr[startIndex] = temp;
 
-    for (let i = 0; i < left.length; i++)
-    {
-        arr[i] = left[i]; // overwrite array with left elements
-    }
-
-    const pivotIndex = left.length;
-    arr[pivotIndex] = pivot; // put pivot after left
-
-    let counter = left.length + 1;
-    for (let j = 0; j < right.length; j++)
-    {
-        arr[counter] = right[j]; // overwrite last elements in array with right side
-        counter++;
-    }
-
-    return pivotIndex;
     // return index of where the pivot ended up
+    return pivotIndex - 1; // minus 1 because index changed after inserting element
 }
 
 /*
 quickSort accepts an array, left index, and right index
 */
 
-function quickSort(arr) 
+function quickSort(arr, leftIndex = 0, rightIndex = arr.length) 
 {
-    if (arr.length <= 1)
+    if (rightIndex - leftIndex <= 1)
     {
+        // there are no numbers between left and right indices; one or no elements left
         return arr; // short enough to count as sorted
     }
-    const pivotIndex = pivot(arr);
-    const pivotVal = arr[pivotIndex]; // save the value of the pivot
 
-    // split into two pieces based on the pivot
-    const left = quickSort(arr.slice(0, pivotIndex)); // don't include pivotIndex itself
-    const right = quickSort(arr.slice(pivotIndex + 1, arr.length));
+    // organize current section of array by pivot, lesser on left, greater on right
+    const pivotIndex = pivot(arr, leftIndex, rightIndex);
 
-    // add the arrays back together
-    left.push(pivotVal); // left, then pivot, then right
-    arr = left.concat(right); // save changes to array
+    // split into two pieces based on the pivot, not including the pivot itself
+    quickSort(arr, leftIndex, pivotIndex); // sort each piece
+    quickSort(arr, pivotIndex + 1, rightIndex);
 
     return arr;
 }

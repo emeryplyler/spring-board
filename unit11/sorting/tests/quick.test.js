@@ -1,4 +1,4 @@
-const { pivot, quickSort } = require("./quick")
+const { pivot, quickSort } = require("../quick")
 
 describe('pivot', function () {
   function strLength(a, b) {

@@ -1,4 +1,4 @@
-const selectionSort = require('./selection')
+const selectionSort = require('../selection')
 
 describe("selectionSort", function () {
   it("should exist", function () {
