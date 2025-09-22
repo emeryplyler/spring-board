@@ -47,16 +47,34 @@ async function drawFromDeck()
     const drawUrl = api.concat(`${deckID}/draw/?count=1`);
     let drawData = await fetch(drawUrl);
     let draw = await drawData.json();
-    // catch
-
-    return draw.cards[0]; // return card object with value and suit and image
+    // if remaining is 0, return nothing
+    if (draw.remaining < 1)
+    {
+        return;
+    }
+    else
+    {
+        return draw.cards[0]; // return card object with value and suit and image
+    }
 }
 
 async function buttonPress() 
 {
     let card = await drawFromDeck(); // wait for card to finish being drawn
-    // add card image to page dom somehow
-    console.log(`button pressed; you drew a card: ${card}`);
+    // are there any cards left?
+    if (!card)
+    {
+        const button = document.querySelector("button");
+        const h = button.parentNode;
+        h.removeChild(button); // remove button
+        return;
+    }
+    // add card image to page dom
+    const image = document.createElement("img"); // make new image
+    image.src = card.image; // set image to card image
+    image.style.position = "absolute"; // make the cards appear on top of each other
+    const cardSpot = document.querySelector(".card-spot");
+    cardSpot.appendChild(image); // add image as a child of cardSpot; now image is in the page
 }
 
 async function pageSetup()
@@ -74,8 +92,8 @@ document.addEventListener("DOMContentLoaded", () =>
     pageSetup();
 
     const button = document.querySelector("button");
-    button.addEventListener("click", buttonPress);
-    // button will be connected to buttonPress()
+    button.addEventListener("click", buttonPress); // button connected to buttonPress()
+
 });
 
 
