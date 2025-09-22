@@ -52,13 +52,30 @@ async function drawFromDeck()
     return draw.cards[0]; // return card object with value and suit and image
 }
 
-// function buttonPress() {}
+async function buttonPress() 
+{
+    let card = await drawFromDeck(); // wait for card to finish being drawn
+    // add card image to page dom somehow
+    console.log(`button pressed; you drew a card: ${card}`);
+}
 
-// page setup
-const url = api.concat("new/shuffle/?deck_count=1"); // create the deck we'll use
-let data = await fetch(url);
-let json = await data.json();
-// catch
-deckID = json.deck_id; // actually set deckID before any button presses
+async function pageSetup()
+{
+    // page setup
+    const url = api.concat("new/shuffle/?deck_count=1"); // create the deck we'll use
+    let data = await fetch(url);
+    let json = await data.json();
+    // catch
+    deckID = json.deck_id; // actually set deckID before any button presses
+}
 
-// connect button to buttonPress()
+document.addEventListener("DOMContentLoaded", () => 
+{
+    pageSetup();
+
+    const button = document.querySelector("button");
+    button.addEventListener("click", buttonPress);
+    // button will be connected to buttonPress()
+});
+
+
