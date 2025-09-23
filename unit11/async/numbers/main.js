@@ -1,5 +1,7 @@
 let numbersAPI = "http://numbersapi.com";
+const favNum = 9;
 
+// 1: my favorite number
 function getNumberFacts(num)
 {
     const numbersAPIUrl = numbersAPI.concat(`/${num}/trivia?json`); // add this to the end of url
@@ -11,8 +13,9 @@ function getNumberFacts(num)
         .then(json => console.log(json.text)) // the output of the previous .then becomes input
         .catch(err => console.error(err));
 }
-getNumberFacts(43);
+getNumberFacts(favNum);
 
+// 2: multiple numbers in a batch request
 function getNumberFactsBatch(arr)
 {
     let numbersUrl = numbersAPI + "/";
@@ -31,6 +34,18 @@ function getNumberFactsBatch(arr)
         .catch(err => console.error(err));
 }
 getNumberFactsBatch([4, 23, 2, 0, 14]);
+
+// 3: four facts about my favorite number
+function getMoreFacts(howMany, num)
+{
+    // NumbersAPI doesn't have an easier way to get multiple facts about the same number the way it does one fact about multiple numbers
+    // make four or so requests about 'num'
+    for (let i = 0; i < 4; i++)
+    {
+        getNumberFacts(num);
+    }
+}
+getMoreFacts(4, favNum);
 
 // // retrieve json
 // fetch(numbersAPI)
