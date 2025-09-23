@@ -3,35 +3,48 @@ const api = "http://deckofcardsapi.com/api/deck/";
 // 1: single card request from newly shuffled deck; console log value and suit
 async function singleCard()
 {
-    const url = api.concat("new/shuffle/?deck_count=1");
-    let data = await fetch(url); // request using new url
-    let json = await data.json(); // after getting data, convert data to json
-    // catch
+    try
+    {
+        // make and shuffle a new deck
+        const url = api.concat("new/shuffle/?deck_count=1");
+        let data = await fetch(url); // request using new url
+        let json = await data.json(); // after getting data, convert data to json
 
-    const drawUrl = api.concat(`${json.deck_id}/draw/?count=1`);
-    let drawData = await fetch(drawUrl);
-    let draw = await drawData.json();
-    // catch
+        // draw a card
+        const drawUrl = api.concat(`${json.deck_id}/draw/?count=1`);
+        let drawData = await fetch(drawUrl);
+        let draw = await drawData.json();
 
-    console.log(`Drew the ${draw.cards[0].value} of ${draw.cards[0].suit}`);
+        console.log(`Drew the ${draw.cards[0].value} of ${draw.cards[0].suit}`);
+    }
+    catch (error)
+    {
+        console.error(error);
+    }
 }
 singleCard();
 
 // 2: single card, then another card from same deck
 async function doubleCard()
 {
-    const url = api.concat("new/shuffle/?deck_count=1");
-    let data = await fetch(url);
-    let json = await data.json();
-    // catch
+    try
+    {
+        const url = api.concat("new/shuffle/?deck_count=1");
+        let data = await fetch(url);
+        let json = await data.json();
 
-    const drawUrl = api.concat(`${json.deck_id}/draw/?count=2`);
-    let drawData = await fetch(drawUrl);
-    let draw = await drawData.json();
-    // catch
+        // draw two cards; because it's the same deck id, both will be taken from the same deck and not be drawn again
+        const drawUrl = api.concat(`${json.deck_id}/draw/?count=2`);
+        let drawData = await fetch(drawUrl);
+        let draw = await drawData.json();
 
-    console.log(`Drew the ${draw.cards[0].value} of ${draw.cards[0].suit}`);
-    console.log(`Drew the ${draw.cards[1].value} of ${draw.cards[1].suit}`);
+        console.log(`Drew the ${draw.cards[0].value} of ${draw.cards[0].suit}`); // first card (0)
+        console.log(`Drew the ${draw.cards[1].value} of ${draw.cards[1].suit}`); // second card (1)
+    }
+    catch (err)
+    {
+        console.error(err);
+    }
 }
 doubleCard();
 
@@ -44,17 +57,24 @@ let deckID = ""; // will be the id of our deck
 // helper function that returns one card from a specified deck
 async function drawFromDeck()
 {
-    const drawUrl = api.concat(`${deckID}/draw/?count=1`);
-    let drawData = await fetch(drawUrl);
-    let draw = await drawData.json();
-    // if remaining is 0, return nothing
-    if (draw.remaining < 1)
+    try
     {
-        return;
+        const drawUrl = api.concat(`${deckID}/draw/?count=1`);
+        let drawData = await fetch(drawUrl);
+        let draw = await drawData.json();
+        // if remaining is 0, return nothing
+        if (draw.remaining < 1)
+        {
+            return;
+        }
+        else
+        {
+            return draw.cards[0]; // return card object with value and suit and image
+        }
     }
-    else
+    catch (err)
     {
-        return draw.cards[0]; // return card object with value and suit and image
+        console.error(`Couldn't draw from deck: ${err}`);
     }
 }
 
@@ -81,10 +101,17 @@ async function pageSetup()
 {
     // page setup
     const url = api.concat("new/shuffle/?deck_count=1"); // create the deck we'll use
-    let data = await fetch(url);
-    let json = await data.json();
-    // catch
-    deckID = json.deck_id; // actually set deckID before any button presses
+    try
+    {
+        let data = await fetch(url);
+        let json = await data.json();
+        // catch
+        deckID = json.deck_id; // actually set deckID before any button presses
+    }
+    catch (err)
+    {
+        console.error(`Couldn't set up page: ${err}`);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => 
@@ -93,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () =>
 
     const button = document.querySelector("button");
     button.addEventListener("click", buttonPress); // button connected to buttonPress()
-
 });
 
 
