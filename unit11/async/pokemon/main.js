@@ -36,7 +36,7 @@ async function threeMons()
         console.log(`Name: ${pokes[i].name}, URL: ${pokes[i].url}`);
     }
 
-    return pokes;
+    return pokes; // return pokemon names and urls for speciesInfo() to use
 }
 // threeMons();
 
@@ -62,22 +62,54 @@ async function speciesInfo(url)
         if (entry.language.name === "en")
         {
             console.log(entry.flavor_text);
-            break;
+            return entry.flavor_text; // return entry for later use
         }
         // else, continue        
     }
 }
 
 // chooses three random pokemon and prints their names and some information to the console
-async function displayThree()
+async function printThree()
 {
     const pokemon = await threeMons(); // get array of three pokemon
+    // store species info in another array for later
+    const pokemonInfo = [];
     for (let i in pokemon)
     {
         console.log(`${pokemon[i].name}: `); // print name
-        await speciesInfo(pokemon[i].url); // call species function on url
+        const info = await speciesInfo(pokemon[i].url); // call species function on url
         // speciesInfo() will print the information
+        pokemonInfo.push([pokemon[i], info]); // add the pokemon and its dex entry to new info array
     }
+    return pokemonInfo; // this will be helpful for part 4
 }
 
-displayThree();
+printThree();
+
+// 4: using html
+
+
+// first, only do this after page is done loading
+document.addEventListener("DOMContentLoaded", () => 
+{
+    try
+    {
+        const button = document.querySelector("button");
+        const entrySpot = document.querySelector(".entry-spot");
+
+        // add a function to the button clicking
+        button.addEventListener("click", async () =>
+        {
+            const pokes = await threeMons();
+        });
+    }
+    catch (err)
+    {
+        console.error(err);
+    }
+    // call threemons and get an array of three random pokemon names and urls
+    // for each pokemon:
+    // make a new box and add a text box to display the name in it
+    // add an image and use the front default sprite
+    // call the species info function and add that to a text box under the sprite
+});
