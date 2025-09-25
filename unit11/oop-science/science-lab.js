@@ -1,15 +1,58 @@
 /* Task 1: Compile Participant Details with Shorthand Property Names */
-// TODO: Construct an object named `participant` with properties for `name`, `age`, and `studyField`. Utilize shorthand property names to simplify your code.
+let name = "John Doe"; // initialize properties
+let age = 44;
+let studyField = "Literature";
+
+let participant = {
+    name, // when property name and variable name are the same, just put the name
+    age, // could also define properties in here rather than making variables? unless there are multiple participants
+    studyField
+};
+console.log(participant);
+
 
 /* Task 2: Implement a Shorthand Function for Participant Info */
-// TODO: Copy the `participant` object by adding a shorthand method named `displayInfo` that prints the participant's details using `this` and a template string.
+let participantCopy = {
+    ...participant, // copy in all properties from participants
+    displayInfo() // add in a new method; the word 'function' isn't required when making an object like this
+    {
+        console.log(`Copy of participant information retrieved. Name: ${this.name}, Age: ${this.age}, Field of Study: ${this.studyField}`);
+    }
+};
+participantCopy.displayInfo(); // call new method from new copied object
+
 
 /* Task 3: Implement a Same Shorthand Arrow Function for Participant Info */
-// TODO: Echo the above task with an arrow function. Observe the behavior of `this` and explain your findings.
+let participantOtherCopy = {
+    ...participant,
+    displayInfo: () => // setting properties needs a colon and arrow functions don't get the special method shorthand like normal functions
+    {
+        console.log(`Secondary copy of participant information retrieved. Name: ${this.name}, Age: ${this.age}, Field of Study: ${this.studyField}`);
+    }
+};
+participantOtherCopy.displayInfo();
 /*
  * Observations:
- * TODO: Explain here.
+ * Because arrow functions don't have access to 'this', all three properties return undefined.
  */
 
+
 /* Task 4: Using Computed Property Names */
-// TODO: Implement a function named `updateParticipantInfo` that takes a property name and value as arguments alongside an object and returns a new object with that property dynamically set.
+
+// First, actually add the displayInfo method to the original object so printing details is easier:
+participant.displayInfo = function ()
+{
+    console.log(`Participant information retrieved. Name: ${this.name}, Age: ${this.age}, Field of Study: ${this.studyField}`);
+};
+
+// make a method that will set the <propertyName> of <targetObject> to <propertyValue>
+function updateParticipantInfo(propertyName, propertyValue, targetObject)
+{
+    // notes: objects' properties can be accessed by property name, which is a string
+    // this means strings can be passed in and properties can be dynamically changed
+    // the syntax is like that of a dictionary: object[key] = value
+    targetObject[propertyName] = propertyValue;
+    return targetObject;
+}
+updateParticipantInfo("name", "John H Doe", participant); // try to change properties of original participant object
+participant.displayInfo(); // use new displayInfo() method to check if name property was changed
