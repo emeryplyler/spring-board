@@ -15,26 +15,14 @@ const planets = [
 // print new array that has all names of habitable planets
 const habitablePlanets = planets.filter(function(planet) 
 {
-    if (planet.temperature >= 253 && planet.temperature <= 323)
-    {
-        if (planet.distance >= 0.75 && planet.distance <= 1.5)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        return false;
-    }
+    // can just do one long comparison instead of nested if-elses
+    return (planet.temperature >= 253 && planet.temperature <= 323 && 
+        planet.distance >= 0.75 && planet.distance <= 1.5);
 });
 
-const habitablePlanetNames = habitablePlanets.map((planet) => 
-{
-    return planet.name;
-});
+// arrow function no parenthesis needed, implicit return with no curly braces because it's one line
+const habitablePlanetNames = habitablePlanets.map(planet => planet.name);
 
-console.log(habitablePlanetNames);
+// anonymous map() arrow function just for printing, joined by commas and spaces
+console.log(`Planets detected: ${planets.map(planet => planet.name).join(", ")}`);
+console.log(`Habitable planets: ${habitablePlanetNames.join(", ")}`);
