@@ -43,6 +43,7 @@ class Tree {
   /** countEvens(): count all of the nodes in the tree with even values. */
 
   countEvens() {
+    if (!this.root) return 0; // empty tree - return a count of 0 nodes
     // need to recursively traverse tree, adding to a counter value
     let evens = 0;
     function countEvensHelper(node) {
@@ -67,14 +68,26 @@ class Tree {
    * whose value is greater than lowerBound. */
 
   numGreater(lowerBound) {
-    
+    if (!this.root) return 0; // empty tree
+
+    let greaters = 0;
+
+    function countGreaters(node) {
+      if (node.val > lowerBound) {
+        greaters++; // count this current node
+      }
+      if (node.children.length > 0) {
+        // call function on all children
+        for (const child of node.children) {
+          countGreaters(child); // count children
+        }
+      }
+    }
+
+    countGreaters(this.root); // actually call function
+
+    return greaters;
   }
 }
-let smallTree;
-let nSmall = new TreeNode(1);
-let nSmall2 = new TreeNode(2);
-nSmall.children.push(nSmall2);
-smallTree = new Tree(nSmall);
-console.log(smallTree.sumValues())
 
 module.exports = { Tree, TreeNode };
