@@ -31,10 +31,9 @@ class Tree {
       
       // if this has children, call sum function on all children
       for (let child of node.children) {
-        sum += summer(child); // add values of all children to sum
+        summer(child);
       }
       sum += node.val; // add own value to sum
-      
     }
     summer(this.root);
     // after running the function, sum will contain the added values of all children
@@ -76,6 +75,6 @@ let nSmall = new TreeNode(1);
 let nSmall2 = new TreeNode(2);
 nSmall.children.push(nSmall2);
 smallTree = new Tree(nSmall);
-smallTree.sumValues()
+console.log(smallTree.sumValues())
 
 module.exports = { Tree, TreeNode };
