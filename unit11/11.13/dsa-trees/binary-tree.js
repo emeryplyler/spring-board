@@ -75,32 +75,34 @@ class BinaryTree {
 
   maxSum() {
     if (!this.root) return 0;
-    // may use similar pattern to min/maxDepth()
+    
+    // the path can go up and down the tree and doesn't need to start at the root
+    // may need to check the maximum between left node, right node, and parent? but nodes can't be traversed twice
+    let sum = 0;
 
     function sumHelper(node) {
+      if (!node) return 0; // node doesn't exist, return its sum (0)
+      
       if (node.left === null && node.right === null) {
         return node.val; // when reaching a leaf, return the leaf's value
       }
 
-      if (node.left === null) {
-        // only left is null, traverse right side
-        return sumHelper(node.right) + node.val; // return children's values and this node's value
-      }
-      
-      if (node.right === null) {
-        return sumHelper(node.left) + node.val;
-      }
-
-      // this node has both a left and right;
-      // compare left and right sums and return the larger one, plus the current node's value
-      const left = sumHelper(node.left);
+      // otherwise, check children
+      const left = sumHelper(node.left); // if either one of these is null, it will just return 0
       const right = sumHelper(node.right);
 
-      return Math.max(left, right) + node.val;
+      // compare; which is greater, the sum, or all three of them?
+      sum = Math.max(sum, node.val + left + right);
+      // if the three of them are the largest sum, then sum will never change again
+
+      // Important!: we set the sum here, but we return only the larger value of the left or right path, NOT the all three
+      // since using all three would end the path
+
+      return Math.max(node.val + left, node.val + right);
     }
 
-    // like in a bracket tournament, the largest possible sum will slowly rise to the top and be returned
-    return sumHelper(this.root);
+    sumHelper(this.root);
+    return sum;
   }
 
   /** nextLarger(lowerBound): return the smallest value in the tree
