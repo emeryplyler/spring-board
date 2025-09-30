@@ -109,7 +109,27 @@ class BinaryTree {
    * which is larger than lowerBound. Return null if no such value exists. */
 
   nextLarger(lowerBound) {
+    // need to traverse entire tree (depth-first search), no early quitting
+    let slightlyLarger = null; // if no nodes are greater than lowerBound, this will stay null
 
+    // recursive function
+    function nextLargerHelper(node) {
+      if (!node) return;
+
+      nextLargerHelper(node.left); // check left and right sides
+      nextLargerHelper(node.right);
+
+      // check self
+
+      // if this value is between lowerBound and slightlyLarger, or 
+      // if it's greater than lowerBound but slightlyLarger hasn't been set yet
+      if (node.val > lowerBound && (!slightlyLarger || node.val < slightlyLarger)) {
+        slightlyLarger = node.val; // this is the new smallest value over lowerBound
+      }
+    }
+
+    nextLargerHelper(this.root);
+    return slightlyLarger;
   }
 
   /** Further study!
