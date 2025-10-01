@@ -46,26 +46,27 @@ class Graph {
   // this function returns an array of Node values using DFS
   depthFirstSearch(start) {
     const nodeValues = [];
-    const toVisit = [start];
-    const seen = new Set(toVisit); // no duplicates
+    // const toVisit = [start];
+    const seen = new Set(); // no duplicates
 
-    nodeValues.push(start.value); // add the first node's value
+    // recursive helper function
+    function dfsHelper(currentNode) {
+      if (!currentNode) return;
 
-    while (toVisit.length > 0) {
-      // pop is okay to use because we want the last item
-      // a depth-first search is easier to do using a stack, which is last-in, first-out
-      // pop also removes the item from the array which we need too; don't visit the same neighbors again
-      let currentNode = toVisit.pop();
-      
+      if (!seen.has(currentNode)) {
+        nodeValues.push(currentNode.value); // add this node's value
+        seen.add(currentNode); // we've now seen this node, don't add it again
+      }
+
+      // call dfsHelper on each of currentNode's neighbors
       for (const neighbor of currentNode.adjacent) {
         if (!seen.has(neighbor)) {
-          nodeValues.push(neighbor.value); // add this node's value to the array
-          toVisit.push(neighbor); // visit this node's adjacents next
-          seen.add(neighbor); // now we've seen this node and won't add its value to the array again
+          dfsHelper(neighbor); // check this neighbor now
         }
       }
     }
 
+    dfsHelper(start);
     return nodeValues;
   }
 
