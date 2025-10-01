@@ -44,7 +44,30 @@ class Graph {
   }
 
   // this function returns an array of Node values using DFS
-  depthFirstSearch(start) {}
+  depthFirstSearch(start) {
+    const nodeValues = [];
+    const toVisit = [start];
+    const seen = new Set(toVisit); // no duplicates
+
+    nodeValues.push(start.value); // add the first node's value
+
+    while (toVisit.length > 0) {
+      // pop is okay to use because we want the last item
+      // a depth-first search is easier to do using a stack, which is last-in, first-out
+      // pop also removes the item from the array which we need too; don't visit the same neighbors again
+      let currentNode = toVisit.pop();
+      
+      for (const neighbor of currentNode.adjacent) {
+        if (!seen.has(neighbor)) {
+          nodeValues.push(neighbor.value); // add this node's value to the array
+          toVisit.push(neighbor); // visit this node's adjacents next
+          seen.add(neighbor); // now we've seen this node and won't add its value to the array again
+        }
+      }
+    }
+
+    return nodeValues;
+  }
 
   // this function returns an array of Node values using BFS
   breadthFirstSearch(start) {}
