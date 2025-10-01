@@ -71,7 +71,34 @@ class Graph {
   }
 
   // this function returns an array of Node values using BFS
-  breadthFirstSearch(start) {}
+  breadthFirstSearch(start) {
+    // bfs is easier with a queue, like how dfs is easier with a stack if not using recursion
+    const nodeValues = [];
+    const seen = new Set();
+
+    const queue = [];
+    queue.push(start); // queue up the first item
+
+    while (queue.length > 0) {
+      // each time, we look at the first node in the queue, then queue up its unseen neighbors
+      let currentNode = queue[0]; // first item, not pop(); queue is FIFO
+      queue.splice(0, 1); // remove currentNode from the queue; we won't need to process it again
+
+      if (!seen.has(currentNode)) {
+        nodeValues.push(currentNode.value); // add this new node's value to the output array
+        seen.add(currentNode); // we have now seen this node, don't add it again
+      }
+
+      for (const neighbor of currentNode.adjacent) {
+        if (!seen.has(neighbor)) {
+          // only check node if we haven't seen it before!
+          queue.push(neighbor); // queue up this neighbor
+        }
+      }
+    }
+
+    return nodeValues;
+  }
 }
 
 module.exports = {Graph, Node}
