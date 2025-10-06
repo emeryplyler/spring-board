@@ -3,6 +3,7 @@
 const giphyApiKey = "MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym";
 const backupApiKey = "lAa1EbLv9XMrhYnU8G0c7RQaPeZANN9O";
 const limit = 10; // how many gifs to request at once; higher number, less chance of repeats
+// added the 'rating' argument as well
 const url = `http://api.giphy.com/v1/gifs/search?api_key=${giphyApiKey}&rating=g&limit=${limit}&q=`;
 
 document.addEventListener("DOMContentLoaded", () => 

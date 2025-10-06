@@ -1,0 +1,33 @@
+# Advanced Tasks
+
+# film id is specified: show all characters in film
+query charsInFilm {
+  film(id: "ZmlsbXM6MQ==") {
+    title
+    characterConnection {
+      characters {
+        name
+        id
+      }
+    }
+  }
+}
+
+# Find characters appearing in multiple films
+query multiFilm {
+  allPeople {
+    people {
+      name
+      filmConnection {
+        totalCount
+      }
+    }
+  }
+}
+
+# Find total number of characters across all films
+query allCharCount {
+  allPeople {
+    totalCount
+  }
+}

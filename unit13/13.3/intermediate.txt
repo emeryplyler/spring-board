@@ -1,0 +1,45 @@
+# Intermediate Tasks
+
+# First 5 characters and their starships
+query charShip {
+  allPeople(first: 5) {
+    people {
+      name
+      starshipConnection { # connection to all starship info
+        starships { # list of starships from connection
+          name
+        }
+      }
+    }
+  }
+}
+
+# 5 species and their languages
+query speciesLang {
+  allSpecies(first: 5) { # just choose first 5 species
+    species {
+      name # retrieve name and language
+      language
+    }
+  }
+}
+
+# Names and climates of 5 planets
+query planetClimate {
+  allPlanets(first: 5) {
+    planets {
+      name
+      climates
+    }
+  }
+}
+
+# Names and costs of 3 vehicles
+query vehicleCost {
+  allVehicles(first: 3) {
+    vehicles {
+      name
+      costInCredits # cost in credits
+    }
+  }
+}

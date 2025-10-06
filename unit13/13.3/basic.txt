@@ -1,0 +1,35 @@
+# Basic Tasks
+
+query getAllFilms {
+  allFilms { # in the list of every film,
+    films { # for each film,
+      title # get its title
+    }
+  }
+}
+
+# person where id="abc"
+# person(id: "abc")
+query specCharacter {
+  person(id: "cGVvcGxlOjMy") {
+    name # list the person's name
+  }
+}
+
+query fivePlanets {
+  allPlanets(first: 5) { # get the first five in the list of all planets
+    planets {
+      name
+    }
+  }
+}
+
+# get names and models of three starships
+query threeStarships {
+  allStarships(last: 3) { # just get the last 3
+    starships {
+      name
+      model
+    }
+  }
+}

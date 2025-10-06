@@ -1,0 +1,99 @@
+# Complex Tasks
+# Character profile with films, starships, and homeworld
+query charProfile {
+  person(id: "cGVvcGxlOjEw") {
+    name
+    filmConnection {
+      films {
+        title
+      }
+    }
+    starshipConnection {
+      starships {
+        name
+      }
+    }
+    homeworld {
+      name
+    }
+  }
+}
+
+# get first 5 chars, with name and population of homeworld
+query charHomes {
+  allPeople(first: 5) {
+    people {
+      name
+      homeworld {
+        name
+        population
+      }
+    }
+  }
+}
+
+# for first 3 vehicles, list names, list pilots, list pilot species
+query vehiclePilots {
+  allVehicles(first: 3) {
+    vehicles {
+      name
+      pilotConnection {
+        pilots {
+          name
+          species {
+            name
+          }
+        }
+      }
+    }
+  }
+}
+
+# since the first 3 vehicles have no pilots, here are some that do:
+# got help from https://graphql.org/learn/queries/#fragments
+fragment vp on Vehicle {
+	name
+  pilotConnection {
+    pilots {
+      name
+      species {
+        name
+      }
+    }
+  }
+}
+query vehiclePilots2 {
+  v1: vehicle(id: "dmVoaWNsZXM6MTQ=") {
+    ...vp
+  }
+  v2: vehicle(id: "dmVoaWNsZXM6MTk=") {
+    ...vp
+  }
+  v3: vehicle(id: "dmVoaWNsZXM6MzA=") {
+    ...vp
+  }
+}
+  
+# for first 3 films, list characters, planets, and starships
+query filmInfo {
+  allFilms(first: 3) {
+    films {
+      title
+      characterConnection {
+        characters {
+          name
+        }
+      }
+      planetConnection {
+        planets {
+          name
+        }
+      }
+      starshipConnection {
+        starships {
+          name
+        }
+      }
+    }
+  }
+}
