@@ -2,7 +2,7 @@
 // working API key //
 const giphyApiKey = "MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym";
 const backupApiKey = "lAa1EbLv9XMrhYnU8G0c7RQaPeZANN9O";
-const limit = 10; // how many gifs to request at once
+const limit = 10; // how many gifs to request at once; higher number, less chance of repeats
 const url = `http://api.giphy.com/v1/gifs/search?api_key=${giphyApiKey}&rating=g&limit=${limit}&q=`;
 
 document.addEventListener("DOMContentLoaded", () => 
@@ -19,10 +19,17 @@ document.addEventListener("DOMContentLoaded", () =>
     {
         ev.preventDefault(); // don't refresh page!
         const query = searchBox.value;
+        if (searchBox.value === "") return; // you have to type something or it won't work
         const gifUrl = await search(query); // call async search function and wait for response
         const newImg = document.createElement("img"); // make new image element
         newImg.src = gifUrl;
         gifContainer.appendChild(newImg); // add image element to DOM
+    });
+
+    clearButton.addEventListener("click", (ev) =>
+    {
+        // delete all children of gifContainer
+        gifContainer.innerHTML = "";
     });
 });
 
@@ -35,14 +42,15 @@ async function search(query)
         const numImg = response.data.data.length;
         let rand = Math.floor(Math.random() * numImg); // grab a random one
         const gifUrl = response.data.data[rand].images["original"].url;
-        if (gifUrl) {
+        if (gifUrl)
+        {
             return gifUrl;
         }
         else
         {
             console.error(response);
         }
-        
+
     }
     catch (err)
     {
