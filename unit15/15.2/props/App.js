@@ -10,7 +10,9 @@ function App ()
 		{name: "First Aid Kit", type: "Medical", quantity: 4, price: 22.35},
 		{name: "Hydroponic Seeds", type: "Food", quantity: 30, price: 10.00},
 		{name: "Communication Radio", type: "Technology", quantity: 3, price: 199.99},
-		{name: "Thruster Fuel", type: "Fuel", quantity: 50, price: 45.00}
+		{name: "Thruster Fuel", type: "Fuel", quantity: 50, price: 45.00},
+        {name: "Comfort Item - Tiger Beanie Baby", type: "Equipment", quantity: "fine"}
+        // Somehow, ("fine" < 5) evaluated to false so no alert appeared
 	];
 
 	return (
@@ -18,6 +20,7 @@ function App ()
 			<h1>Inventory</h1>
 			<ol>
 				{/* notes: specifying index in the map arguments to use as key */}
+                {/* No for-loop required when using map() */}
                 {inventoryItems.map((item, index) => (
                     <li key={index}>
                         <InventoryItem name={item.name} type={item.type} quantity={item.quantity} price={item.price}/>

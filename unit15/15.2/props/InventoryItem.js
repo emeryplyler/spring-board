@@ -6,9 +6,18 @@ function InventoryItem ({name, type, quantity = 1, price = 0})
     return (
 		<div>
 			<h2>{name} ({type}) </h2>
-            Quantity: {quantity} {quantity < 5 ? " - Alert: low stock": ""} <br></br>
-            Individual price: {price}<br></br>
-            Total value: {quantity * price} {quantity * price > 10000 ? " - Alert: high value; extra protection recommended" : ""}
+            {
+                // ternary operator good for if else, and operator good for if with no else
+                quantity < 5 && <Message>⚠️ALERT: low stock - only {quantity} left⚠️</Message>
+            }
+            {
+                quantity * price > 1000 && <Message>⚠️ALERT: high value - extra protection recommended⚠️</Message>
+            }
+            {
+                // all good
+                // AND operator can have more than two operands
+                !(quantity < 5) && !(quantity * price > 1000) && <Message>✅</Message>
+            }
 		</div>
 	);
 }
