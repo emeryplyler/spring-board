@@ -1,0 +1,1 @@
+The node_modules folder and package-lock.json file were ignored and not submitted since they're generated on compilation. I didn't need the App.css file anymore so I deleted it and just added to the index.css instead.
