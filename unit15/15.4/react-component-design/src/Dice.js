@@ -4,21 +4,21 @@ import Die from "./Die.js";
 
 /** A game can be any number of Dies, all with random values. */
 
-function Dice(props) {
+function Dice({title = "Main Game", numDice = 6, maxVal = 20}) {
 
-  const [values, setValue] = useState(Array.from({ length: props.numDice }));
+  const [values, setValue] = useState(Array.from({ length: numDice }));
 
   /** roll a new set of random numbers */
 
   const roll = () => {
     setValue(curValues =>
-        curValues.map(n => Math.floor(Math.random() * props.maxVal) + 1),
+        curValues.map(n => Math.floor(Math.random() * maxVal) + 1),
     );
   };
 
   return (
       <section className="Dice">
-        <h1>{props.title}</h1>
+        <h1>{title}</h1>
         <div>
           {values.map(n => (
               <Die value={n} />
