@@ -45,7 +45,9 @@ function MissionControl(props)
                                 crew={mission.crew}
                             />
                             <MissionAction
-                                id={mission.id} onClick={updateStatus}
+                                id={mission.id}
+                                stat={mission.status}
+                                onClick={updateStatus}
                             />
                         </div>
 
