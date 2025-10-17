@@ -10,6 +10,7 @@ function MissionAction({ id, stat, onClick })
             {/* <button onClick={() => props.onClick("Complete", props.id)}>Launch Mission</button> */}
             <select
                 name="missionStatus"
+                id="buttons"
                 value={stat} // passed in from props
                 onChange={changeEvent => onClick(changeEvent.target.value, id)}
             >
