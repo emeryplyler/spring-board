@@ -2,6 +2,7 @@
 import { useState } from "react";
 import MissionCard from "./MissionCard";
 import MissionAction from "./MissionAction";
+import MissionFilter from "./MissionFilter";
 
 function MissionControl(props)
 {
@@ -29,29 +30,37 @@ function MissionControl(props)
         updateMission(newMissions);
     }
 
+    const [currentFilter, updateCurrentFilter] = useState("All");
+
     // updateStatus("Completed", 1);
 
     // map missions array to array of MissionCards
     return (
         <>
+            <h1>Mission Control Center</h1>
+            <MissionFilter changeFilter={updateCurrentFilter} />
             <div id="mission-list">
                 {missionStates.map((mission) =>
                 {
-                    return (
-                        <div key={mission.id} id="mission">
-                            <MissionCard
-                                name={mission.name}
-                                status={mission.status}
-                                crew={mission.crew}
-                            />
-                            <MissionAction
-                                id={mission.id}
-                                stat={mission.status}
-                                onClick={updateStatus}
-                            />
-                        </div>
+                    if (currentFilter === "All" || currentFilter === mission.status)
+                    {
+                        return (
+                            <div key={mission.id} id="mission">
+                                <MissionCard
+                                    name={mission.name}
+                                    status={mission.status}
+                                    crew={mission.crew}
+                                />
+                                <MissionAction
+                                    id={mission.id}
+                                    stat={mission.status}
+                                    onClick={updateStatus}
+                                />
+                            </div>
 
-                    );
+                        );
+                    }
+
                 })}
             </div>
         </>
