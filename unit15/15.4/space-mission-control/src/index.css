@@ -1,0 +1,15 @@
+#mission-list {
+    display: grid;
+    /* 3 columns, same width for each */
+    grid-template-columns: repeat(3, 1fr)
+    
+}
+
+/* A mission card and its mission actions */
+#mission {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 10px;
+    border: 2px solid black;
+    padding: 10px;
+    line-height: 25px;
+}
