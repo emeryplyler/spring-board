@@ -7,7 +7,6 @@ function MissionAction({ id, stat, onClick })
     // use an anon function that calls the function that we need to call
     return (
         <div id="mission-actions">
-            {/* <button onClick={() => props.onClick("Complete", props.id)}>Launch Mission</button> */}
             <select
                 name="missionStatus"
                 id="buttons"

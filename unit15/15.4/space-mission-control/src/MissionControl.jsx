@@ -13,7 +13,7 @@ function MissionControl(props)
 
     function updateStatus(newStatus, missionId)
     {
-        // status is a string, missionIndex is the int index of the mission to update in missionStates
+        // status is a string, missionId is the id property of the mission to update in missionStates
         let newMissions = missionStates.map(mission =>
         {
             if (mission.id === missionId)
@@ -31,8 +31,6 @@ function MissionControl(props)
     }
 
     const [currentFilter, updateCurrentFilter] = useState("All");
-
-    // updateStatus("Completed", 1);
 
     // map missions array to array of MissionCards
     return (
@@ -65,10 +63,6 @@ function MissionControl(props)
             </div>
         </>
     );
-
-    // mission action for each mission
-
-    // mission filter 
 }
 
 export default MissionControl;
