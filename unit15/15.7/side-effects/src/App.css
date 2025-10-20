@@ -1,0 +1,27 @@
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: large;
+    margin: auto 5px;
+}
+
+.star {
+    background-color: white;
+    padding: 4px;
+    border-radius: 100%;
+}
+
+.space {
+    background-color: black;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
