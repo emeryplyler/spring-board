@@ -9,8 +9,7 @@ button {
     padding: 10px 20px;
     font-size: large;
     margin: auto 5px;
-    color: white;
-    background-color: aqua;
+    color: black;
     z-index: 200;
     position: fixed;
 }
