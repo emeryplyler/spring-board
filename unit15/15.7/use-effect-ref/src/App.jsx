@@ -45,6 +45,10 @@ function App()
     {
         // called by shuffle button
 
+        // make shuffle button unpressable
+        let button = document.getElementById("shuffle-button");
+        button.disabled = true;
+
         // remove all existing cards from page
         if (deckElement.hasChildNodes())
         {
@@ -72,6 +76,10 @@ function App()
             let newDeck = { deckID: response.data.deck_id, remaining: response.data.remaining }; // reformat
             updateDeck(newDeck);
             updateLog("Shuffled new deck.");
+
+            // in case shuffle button was pressed
+            let button = document.getElementById("shuffle-button");
+            button.disabled = false;
         }
         catch (err)
         {
@@ -99,6 +107,8 @@ function App()
     async function reshuffle()
     {
         const response = await axios.get(`https://deckofcardsapi.com/api/deck/${deck.deckID}/shuffle/?remaining=true`);
+        let button = document.getElementById("shuffle-button");
+        button.disabled = false;
         updateLog("Shuffled deck.");
     }
 
