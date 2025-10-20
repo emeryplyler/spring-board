@@ -5,6 +5,11 @@
     text-align: center;
 }
 
+button {
+    padding: 10px 20px;
+    font-size: large;
+}
+
 #card {
     position: absolute;
     left: 0;

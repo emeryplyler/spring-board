@@ -42,7 +42,7 @@ function App()
         // called by the draw button
         if (deck.remaining <= 0)
         {
-            console.log("No cards left!");
+            alert("No cards left!");
             return;
         }
 
