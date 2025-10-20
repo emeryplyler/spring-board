@@ -8,6 +8,7 @@
 button {
     padding: 10px 20px;
     font-size: large;
+    margin: auto 5px;
 }
 
 #card {
