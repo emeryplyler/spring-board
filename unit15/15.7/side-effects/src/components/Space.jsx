@@ -8,7 +8,6 @@ function Space()
 {
     const STAR_SIZE = 5;
     const [stars, setStars] = useState([]); // array of references to star objects
-    let intervalID = useRef(null);
     let idCounter = useRef(0); // increment to make star ids
     // Implement the logic to generate stars at random positions within the viewport (Hint: x position is window.innerWidth - STAR_SIZE multiplied by a random number within 0 and 1). Each star should have a unique identifier.
     function makeStar()
@@ -54,27 +53,24 @@ function Space()
     }
 
     // useEffect for interval adding new star every 2.5 sec
-    let going = false; // on page load, the browser keeps calling this twice so I added this boolean
+    let going = false; // on page load the browser keeps calling this twice, so I added this boolean
     useEffect(() =>
     {
+        let intervalID = null;
         if (!going)
         {
-            intervalID.current = setInterval(makeStar, 2500);
+            intervalID = setInterval(makeStar, 2500);
             going = true;
         }
+        
+        // add a return; return will happen when component unmounts
+        return (() => intervalID && clearInterval(intervalID.current));
     }, []);
-
-    // clean up interval
-    function endInterval()
-    {
-        intervalID.current && clearInterval(intervalID.current);
-    }
 
     // render each star
 
     return (
         <>
-            <button id="end-interval-button" onClick={endInterval}> stop making stars </button>
             <div className="space">
                 {
                     stars.map((star) =>
