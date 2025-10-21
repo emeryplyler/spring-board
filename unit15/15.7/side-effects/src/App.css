@@ -16,8 +16,16 @@ button {
 
 .star {
     background-color: white;
+    border-color: white;
     padding: 4px;
     border-radius: 100%;
+}
+
+/* make a glow effect using box-shadow; 
+offset x, offset y, blur intensity, spread, color */
+.star:focus {
+    box-shadow: 0 0 20px 15px white;
+    outline: none;
 }
 
 .space {
