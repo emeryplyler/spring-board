@@ -1,8 +1,3 @@
-// has a form for users to input new items into inv
-// updates inventory state array in SpacecraftBuilder
-// make all fields required
-// validate each field on submission; if field missing, highlight
-// clear form on successful submission
 import { useState } from 'react';
 import { useContext } from 'react';
 import { InventoryContext } from './InventoryContext.jsx';
@@ -40,10 +35,12 @@ function ItemForm()
         ev.preventDefault(); // no refresh
 
         const { name, quantity, purpose } = formData; // grab info that user entered
-        alert(`Added item: ${name}, quantity: ${quantity}, purpose: ${purpose}`); // notify user
+        alert(`Added item: ${quantity}x ${name} - ${purpose}`); // notify user
 
         addItem(name, quantity, purpose); // call addItem function from context
         setFormData(INITIAL_STATE); // reset form fields
+
+        document.querySelector('.item-form').reset(); // reset the form visually; prevents red invalid outline on submit
     };
 
     return (
