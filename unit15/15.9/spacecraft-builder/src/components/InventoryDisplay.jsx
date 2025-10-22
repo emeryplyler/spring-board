@@ -1,5 +1,6 @@
 import ItemCard from './ItemCard.jsx';
 import ItemAction from './ItemAction.jsx';
+import './InventoryDisplay.css';
 
 function InventoryDisplay({ inventory })
 {

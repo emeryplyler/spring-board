@@ -1,10 +1,13 @@
 // display item details
+import './ItemCard.css';
 
 function ItemCard({ item, children })
 {
     return (
         <div className="item-card">
-            {item.name}; quantity: {item.quantity}; purpose: {item.purpose}
+            <p>
+                {item.name}; quantity: {item.quantity}; purpose: {item.purpose}
+            </p>
             {children}
         </div>
     );

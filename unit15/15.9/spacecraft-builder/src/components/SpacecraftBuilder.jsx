@@ -24,7 +24,10 @@ function SpacecraftBuilder()
     // wrap inv display in context provider; it itself doesn't need the delete function, but its children do
     return (
         <div className="spacecraft-builder">
+            <h2>Add Item to Inventory</h2>
             <ItemForm />
+            
+            <h2>Inventory</h2>
             <InventoryContext.Provider value={deleteItem}>
                 <InventoryDisplay inventory={inventory} />
             </InventoryContext.Provider>

@@ -1,0 +1,12 @@
+.item-card {
+    /* notes: flex-basis: default size of flex items; 100% will make sure there's only one item per row */
+    flex-basis: 100%;
+    margin: 10px 0;
+    display: flex;
+
+    /* align-items = this item's place in the current line based on cross axis
+    default flex direction is row, so main axis is left to right and cross axis is up to down
+    the item will be placed in a row somewhere; align-items controls if it's against the ceiling, floor, or center of the row */
+    align-items: center;
+    justify-content: space-between;
+}
