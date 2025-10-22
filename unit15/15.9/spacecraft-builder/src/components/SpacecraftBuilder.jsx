@@ -21,11 +21,22 @@ function SpacecraftBuilder()
         setInventory(inv => inv.filter(item => item.id !== id));
     }
 
+    // function to add an item
+    function addItem(name, quantity, purpose)
+    {
+        // inv += item
+        let newItem = { name, quantity, purpose };
+        setInventory(inv => [...inv, newItem]);
+    }
+
     // wrap inv display in context provider; it itself doesn't need the delete function, but its children do
     return (
         <div className="spacecraft-builder">
             <h2>Add Item to Inventory</h2>
-            <ItemForm />
+            <InventoryContext.Provider value={addItem}>
+                <ItemForm />
+            </InventoryContext.Provider>
+            
             
             <h2>Inventory</h2>
             <InventoryContext.Provider value={deleteItem}>
