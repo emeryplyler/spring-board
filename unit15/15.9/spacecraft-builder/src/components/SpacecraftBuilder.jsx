@@ -1,10 +1,7 @@
-// manage state of inventory
-// render item form to allow item submission; to add items to inv on submission, pass down a callback function
-// render inventory display to show inventory and delete items; for deletion, pass down a callback function
-
 import { useState } from 'react';
 import ItemForm from './ItemForm';
 import InventoryDisplay from './InventoryDisplay.jsx';
+import { InventoryContext } from './InventoryContext.jsx';
 
 function SpacecraftBuilder()
 {
@@ -17,12 +14,22 @@ function SpacecraftBuilder()
 
     const [inventory, setInventory] = useState(initialInv);
 
+    // function to delete item by id; passed down through inv display to item action using context
+    function deleteItem(id)
+    {
+        // filter out item with matching id, keep every other item and update inventory state
+        setInventory(inv => inv.filter(item => item.id !== id));
+    }
+
+    // wrap inv display in context provider; it itself doesn't need the delete function, but its children do
     return (
         <div className="spacecraft-builder">
             <ItemForm />
-            <InventoryDisplay inventory={inventory} />
+            <InventoryContext.Provider value={deleteItem}>
+                <InventoryDisplay inventory={inventory} />
+            </InventoryContext.Provider>
         </div>
-    )
+    );
 }
 
 export default SpacecraftBuilder;

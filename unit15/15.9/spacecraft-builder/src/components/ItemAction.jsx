@@ -1,9 +1,14 @@
 // lets user delete an item
 
-function ItemAction({ onDelete })
+import { useContext } from 'react';
+import { InventoryContext } from './InventoryContext.jsx';
+
+function ItemAction({ id })
 {
+    const removeItem = useContext(InventoryContext); // retrieve delete function from context
+
     return (
-        <button onClick={onDelete} className="item-action">Remove</button>
+        <button onClick={() => removeItem(id)} className="item-action">Remove</button>
     );
 }
 
