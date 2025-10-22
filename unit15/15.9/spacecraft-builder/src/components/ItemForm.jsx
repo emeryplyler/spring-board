@@ -6,6 +6,7 @@
 import { useState } from 'react';
 import { useContext } from 'react';
 import { InventoryContext } from './InventoryContext.jsx';
+import './ItemForm.css';
 
 function ItemForm()
 {

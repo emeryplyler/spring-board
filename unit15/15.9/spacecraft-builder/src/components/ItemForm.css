@@ -1,0 +1,23 @@
+.item-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.item-form * {
+    margin: 10px 0;
+}
+
+.item-form button {
+    align-self: flex-end;
+}
+
+input[name="purpose"] {
+    /* flex-basis: 80%; */
+    height: 5em;
+}
+
+/* highlight invalid fields only after user touches them */
+:user-invalid {
+    box-shadow: 0 0 6px 2px rgb(210, 74, 74);
+}
