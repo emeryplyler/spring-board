@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import ItemForm from './ItemForm';
 import InventoryDisplay from './InventoryDisplay.jsx';
 import { InventoryContext } from './InventoryContext.jsx';
@@ -14,6 +14,9 @@ function SpacecraftBuilder()
 
     const [inventory, setInventory] = useState(initialInv);
 
+    // counter to generate unique ids
+    let idCounter = useRef(initialInv.length + 1);
+
     // function to delete item by id; passed down through inv display to item action using context
     function deleteItem(id)
     {
@@ -25,7 +28,8 @@ function SpacecraftBuilder()
     function addItem(name, quantity, purpose)
     {
         // inv += item
-        let newItem = { name, quantity, purpose };
+        let newItem = { id: idCounter.current, name, quantity, purpose };
+        idCounter.current += 1; // increment id counter for next item
         setInventory(inv => [...inv, newItem]);
     }
 
