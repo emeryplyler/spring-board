@@ -6,7 +6,9 @@ function ItemCard({ item, children })
     return (
         <div className="item-card">
             <p>
-                {item.name}; quantity: {item.quantity}; purpose: {item.purpose}
+                <h3>{item.name}</h3>
+                Quantity: {item.quantity} <br />
+                Purpose: {item.purpose}
             </p>
             {children}
         </div>

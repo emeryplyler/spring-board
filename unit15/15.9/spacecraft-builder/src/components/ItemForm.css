@@ -6,6 +6,7 @@
 
 .item-form * {
     margin: 10px 0;
+    font: inherit;
 }
 
 .item-form button {
