@@ -12,21 +12,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-header nav {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    justify-content: start;
-    margin: 0 auto;
-}
-header nav h1 {
-    margin-right: auto;
-    border-bottom: 3px solid black;
-}
-header nav a.active {
-    color: #646cff;
-}
-
 main {
     margin: 40px auto;
 }

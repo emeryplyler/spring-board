@@ -1,0 +1,35 @@
+
+nav {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: start;
+    margin: 0 auto;
+}
+
+nav h1 {
+    margin-right: auto;
+    border-bottom: 3px solid black;
+    min-width: fit-content;
+}
+
+nav a.active {
+    color: #646cff;
+    background-color: #eeeeff;
+}
+
+nav a {
+    color: black;
+    background-color: #f9f9f9;
+    padding: 0.75em 1em;
+    border-radius: 8px;
+    /* need to have a solid border even if it's transparent here so that changing it doesn't shift content 2px */
+    border: 1px solid transparent;
+    transition: border-color 0.25s, color 0.25s, background-color 0.25s;
+    /* remove link underline */
+    text-decoration: none;
+}
+
+nav a:hover {
+    border-color: #646cff;
+}

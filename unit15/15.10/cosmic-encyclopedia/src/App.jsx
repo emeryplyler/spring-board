@@ -1,22 +1,51 @@
-import { BrowserRouter, Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
-import Layout from './Layout';
+import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider, Outlet } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import NavigateBackButton from './components/NavigateBackButton';
 import HomePage from './pages/HomePage';
-import ContentPage, { contentPageLoader } from './pages/ContentPage';
+import ContentPage from './pages/ContentPage';
+
+import data from './data/data.json';
 
 import './App.css';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<Layout />}>
+        // root element is a header and main; the navbar goes in the header, the child components go in main
+        <Route
+            path="/"
+            element={
+                <div>
+                    <header>
+                        <NavBar data={data} />
+                    </header>
+
+                    <main>
+                        <Outlet />
+                        <NavigateBackButton />
+                    </main>
+                </div>
+            }>
+
             <Route index element={<HomePage />} />
 
-            <Route
-                path=":id"
-                element={<ContentPage />}
-                loader={contentPageLoader}
+            {
+                // create content pages dynamically using data.json
+                data.entries.map(
+                    item => (
+                        <Route
+                            path={`/${item.id}`}
+                            element={<ContentPage data={item} />}
+                        />
+                    )
+                )
+            }
+
+            <Route path="*" element={
+                <>
+                    <h1>404</h1> <p>Couldn't find page</p>
+                </>}
             />
 
-            <Route path="*" element={<h1>404</h1>} />
         </Route>
     )
 );

@@ -1,8 +1,6 @@
-import { NavLink, useLoaderData, useParams } from "react-router-dom";
-
-export default function ContentPage()
+export default function ContentPage({data})
 {
-    const data = useLoaderData(); // retrieve data object
+    // const data = useLoaderData(); // retrieve data object
 
     return (
         <div>
@@ -11,13 +9,3 @@ export default function ContentPage()
         </div>
     );
 }
-
-// loader function; called by dynamic route in App.jsx
-export const contentPageLoader = async ({ params }) =>
-{
-    const { id } = params; // router provides 'params' argument that has route variables
-
-    const res = await fetch("http://localhost:4000/entries/" + id);
-
-    return res.json();
-};

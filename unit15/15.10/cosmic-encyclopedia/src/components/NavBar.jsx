@@ -1,21 +1,18 @@
 import { NavLink } from 'react-router-dom';
+import './NavBar.css'
 
-export default function NavBar()
+export default function NavBar({data})
 {
+    let counter = 1; // index 0 is for home link
     return (
         <nav>
             <h1>Cosmic Encyclopedia</h1>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/earth">Earth</NavLink>
-            <NavLink to="/mercury">Mercury</NavLink>
-            <NavLink to="/venus">Venus</NavLink>
-            <NavLink to="/mars">Mars</NavLink>
-            <NavLink to="/jupiter">Jupiter</NavLink>
-            <NavLink to="/saturn">Saturn</NavLink>
-            <NavLink to="/uranus">Uranus</NavLink>
-            <NavLink to="/neptune">Neptune</NavLink>
-            <NavLink to="/pluto">Pluto</NavLink>
-            <NavLink to="/sun">The Sun</NavLink>
+            <NavLink key={0} to={"/"}>Home</NavLink>
+            {
+                data.entries.map(entry => (
+                    <NavLink key={counter++} to={`/${entry.id}`}>{entry.name}</NavLink>
+                ))
+            }
         </nav>
     );
 }
