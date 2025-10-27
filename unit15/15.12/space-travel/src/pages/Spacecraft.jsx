@@ -1,0 +1,1 @@
+// display detailed info on specific spacecraft

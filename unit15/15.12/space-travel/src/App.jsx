@@ -3,6 +3,7 @@ import styles from "./App.module.css";
 
 import NavBar from "./components/NavBar";
 import Homepage from "./pages/Homepage";
+import Planets from "./pages/Planets";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -11,13 +12,13 @@ const router = createBrowserRouter(
             element={
                 // create Layout
                 <>
-                    <NavBar routes={['about']} />
+                    <NavBar routes={['planets']} />
                     <Outlet />
                 </>
             }
         >
             <Route index element={<Homepage />} />
-            <Route path="/about" element={<div>about</div>} />
+            <Route path="/planets" element={<Planets />} />
 
         </Route>
     )
