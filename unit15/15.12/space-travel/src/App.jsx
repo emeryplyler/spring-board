@@ -8,8 +8,18 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <Route
             path="/"
-            element={<Homepage />}
-        />
+            element={
+                // create Layout
+                <>
+                    <NavBar routes={['about']} />
+                    <Outlet />
+                </>
+            }
+        >
+            <Route index element={<Homepage />} />
+            <Route path="/about" element={<div>about</div>} />
+
+        </Route>
     )
 );
 
@@ -18,7 +28,6 @@ function App()
     return (
         <>
             <h1>Space Travel</h1>
-            <NavBar routes={['home', 'info', 'about']} />
             <RouterProvider router={router} />
         </>
     );
