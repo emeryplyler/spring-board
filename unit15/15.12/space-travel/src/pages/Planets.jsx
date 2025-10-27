@@ -3,6 +3,7 @@
 
 import React, { useEffect, useState } from 'react';
 import SpaceTravelApi from '../services/SpaceTravelApi';
+import Loading, { showLoading, hideLoading } from '../components/Loading';
 
 export default function Planets()
 {
@@ -11,6 +12,8 @@ export default function Planets()
 
     async function showPlanets()
     {
+        showLoading();
+
         let res = await SpaceTravelApi.getPlanets();
         if (res.isError)
         {
@@ -21,7 +24,7 @@ export default function Planets()
             setPlanets(res.data);
         }
 
-
+        hideLoading();
     }
 
     // update planet list on startup
@@ -35,6 +38,7 @@ export default function Planets()
                     <div key={index}>{planet.name}</div>
                 ))
             }
+            <Loading />
         </div>
     );
 }
