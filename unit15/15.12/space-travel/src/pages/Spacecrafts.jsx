@@ -26,6 +26,7 @@ export default function Spacecrafts()
     useEffect(() => { getSpacecrafts(); }, []);
     // TODO: do spacecraft update automatically because they're stateful, or do they need to be in the dependency list here?
 
+    // TODO: add onclick event to take user to specific spacecraft's page by id
     return (
         <div>
             Spacecrafts
