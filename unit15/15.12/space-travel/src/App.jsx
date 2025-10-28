@@ -9,10 +9,14 @@ import SpaceTravelApi from "./services/SpaceTravelApi";
 import Spacecraft, { craftLoader } from "./pages/Spacecraft";
 import { useEffect, useState } from "react";
 import { hideLoading, showLoading } from "./components/Loading";
+import { SpaceTravelContext } from "./context/SpaceTravelContext";
 
 function App()
 {
-    const [crafts, setCrafts] = useState([]);
+    const [spaceData, setSpaceData] = useState({
+        crafts: [],
+        planets: []
+    });
 
     const router = createBrowserRouter(
         createRoutesFromElements(
@@ -22,25 +26,16 @@ function App()
                     // create Layout
                     <>
                         <NavBar routes={['Planets', 'Spacecraft']} />
-                        <Outlet />
+                        <SpaceTravelContext.Provider value={spaceData}>
+                            <Outlet />
+                        </SpaceTravelContext.Provider>
+
                     </>
                 }
             >
                 <Route index element={<Homepage />} />
                 <Route path="/planets" element={<Planets />} />
                 <Route path="/spacecraft" element={<Spacecrafts />} />
-
-                {/* {
-                    crafts.map(craft => (
-                        // use stateful array to dynamically make pages for each spacecraft?
-                        <Route
-                            key={craft.id}
-                            path={`/ships/${craft.id}`}
-                            element={<Spacecraft />}
-                            loader={craftLoader}
-                        />
-                    ))
-                } */}
 
                 <Route path="ships/:id" element={<Spacecraft />} loader={craftLoader} />
 
@@ -50,23 +45,32 @@ function App()
         )
     );
 
-    // TODO: using the loading trick in getCrafts doesn't work;
-    // when the page first loads, it goes straight to the 404 because the spacecraft's page and route havent been created yet
-    // it then switches to the spacecraft's page once they're done being made, but the timing is messed up and the 'Loading...' just stays there
-    // TRY LOADERS
-    async function getCrafts() 
+    // async function that will run on page load and retrieve the list of spacecraft and planets to give to child components
+    async function getSpaceData() 
     {
-        let res = await SpaceTravelApi.getSpacecrafts();
-        if (res.isError)
+        let craftRes = await SpaceTravelApi.getSpacecrafts();
+        if (craftRes.isError || !craftRes.data)
         {
-            console.error("couldn't get the list of spacecrafts to make pages");
+            console.error("couldn't get the list of spacecrafts");
         }
         else
         {
-            setCrafts(res.data);
+            // update the crafts property to the new spacecraft list
+            setSpaceData(prevData => ({ ...prevData, crafts: craftRes.data }));
+        }
+
+        let planetRes = await SpaceTravelApi.getPlanets();
+        if (planetRes.isError || !planetRes.data)
+        {
+            console.error("couldn't get planet array")
+        }
+        else
+        {
+            // update planets property
+            setSpaceData(prevData => ({ ...prevData, planets: planetRes.data}))
         }
     }
-    useEffect(() => { getCrafts(); }, []);
+    useEffect(() => { getSpaceData(); }, []);
 
     return (
         <>
