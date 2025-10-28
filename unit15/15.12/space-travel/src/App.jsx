@@ -6,7 +6,7 @@ import Homepage from "./pages/Homepage";
 import Planets from "./pages/Planets";
 import Spacecrafts from "./pages/Spacecrafts";
 import SpaceTravelApi from "./services/SpaceTravelApi";
-import Spacecraft, { craftLoader } from "./pages/Spacecraft";
+import Spacecraft from "./pages/Spacecraft";
 import { useEffect, useState } from "react";
 import { hideLoading, showLoading } from "./components/Loading";
 import { SpaceTravelContext } from "./context/SpaceTravelContext";
@@ -37,7 +37,7 @@ function App()
                 <Route path="/planets" element={<Planets />} />
                 <Route path="/spacecraft" element={<Spacecrafts />} />
 
-                <Route path="ships/:id" element={<Spacecraft />} loader={craftLoader} />
+                <Route path="ships/:id" element={<Spacecraft />} />
 
                 <Route path="/*" element={<div>404</div>} />
 
