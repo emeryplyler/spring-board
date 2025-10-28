@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import SpaceTravelApi from '../services/SpaceTravelApi';
 import Loading, { showLoading, hideLoading } from '../components/Loading';
+import { Link } from 'react-router-dom';
 
 export default function Spacecrafts()
 {
@@ -32,7 +33,7 @@ export default function Spacecrafts()
             Spacecrafts
             {
                 spacecrafts.map((spacecraft, index) => (
-                    <div key={index}>{spacecraft.name}</div>
+                    <Link key={index} to={`/ships/${spacecraft.id}`}>{spacecraft.name}</Link>
                 ))
             }
             <Loading />

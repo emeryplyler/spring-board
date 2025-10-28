@@ -15,23 +15,27 @@
 
 import React from 'react';
 import SpaceTravelApi from '../services/SpaceTravelApi';
+import { useLoaderData } from 'react-router-dom';
 
 // is passed a spacecraft object
-export default function Spacecraft({ spacecraft })
+export default function Spacecraft()
 {
+    const craft = useLoaderData();
+
     return (
         <ul>
             Spacecraft
-            <li>Name: {spacecraft.name}</li>
-            <li>Description: {spacecraft.description}</li>
+            <li>Name: {craft.name}</li>
+            <li>Description: {craft.description}</li>
         </ul>
     );
 }
 
 // loader function
-const craftLoader = async (id) =>
+export const craftLoader = async ({ params }) =>
 {
-    const res = await SpaceTravelApi.getSpacecraftById(id);
+    const id = params.id;
+    const res = await SpaceTravelApi.getSpacecraftById({id});
 
     if (res.isError)
     {
@@ -41,4 +45,4 @@ const craftLoader = async (id) =>
     {
         return res.data;
     }
-}
+};
