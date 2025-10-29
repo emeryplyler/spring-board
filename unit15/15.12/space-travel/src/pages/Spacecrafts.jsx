@@ -7,17 +7,12 @@ export default function Spacecrafts()
 {
     const spacecrafts = useContext(SpaceTravelContext).crafts;
 
-    const destroy = (id) =>
-    {
-        console.log("destroy ship with id " + id);
-    }
-
     return (
         <div>
             Spacecrafts
             {
                 spacecrafts.map((spacecraft, index) => (
-                    <InListSpacecraft key={index} id={spacecraft.id} name={spacecraft.name} capacity={spacecraft.capacity} destroy={destroy} />
+                    <InListSpacecraft key={index} id={spacecraft.id} name={spacecraft.name} capacity={spacecraft.capacity} />
                     // <Link key={index} to={`/ships/${spacecraft.id}`}>{spacecraft.name}</Link>
                 ))
             }

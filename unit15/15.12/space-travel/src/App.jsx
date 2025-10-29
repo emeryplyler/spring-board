@@ -16,6 +16,7 @@ function App()
     });
 
     // async function that will run on page load and retrieve the list of spacecraft and planets to give to child components
+    // also called by Construction and InListSpacecraft when ships are created and deleted
     async function getSpaceData() 
     {
         let craftRes = await SpaceTravelApi.getSpacecrafts();
@@ -40,7 +41,22 @@ function App()
             setSpaceData(prevData => ({ ...prevData, planets: planetRes.data }));
         }
     }
-    useEffect(() => { getSpaceData(); }, [spaceData]);
+    useEffect(() => { getSpaceData(); }, []);
+
+    // function to delete a spacecraft; called by InListSpacecraft
+    const destroySpacecraft = (id) =>
+    {
+        console.log("destroy ship with id " + id);
+    }
+
+    // context value to pass down to child elements
+    const contextValue = {
+        crafts: spaceData.crafts,
+        planets: spaceData.planets,
+        destroySpacecraft,
+        update: getSpaceData
+    }
+
 
     if (spaceData.planets.length < 1 || spaceData.crafts.length < 1)
     {
@@ -52,7 +68,7 @@ function App()
     return (
         <>
             <h1>Space Travel</h1>
-            <SpaceTravelContext.Provider value={spaceData}>
+            <SpaceTravelContext.Provider value={contextValue}>
                 <RouterProvider router={router} />
             </SpaceTravelContext.Provider>
 
