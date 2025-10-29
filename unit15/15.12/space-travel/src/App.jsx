@@ -1,15 +1,11 @@
-import { createBrowserRouter, createRoutesFromElements, Outlet, Route, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import styles from "./App.module.css";
 
-import NavBar from "./components/NavBar";
-import Homepage from "./pages/Homepage";
-import Planets from "./pages/Planets";
-import Spacecrafts from "./pages/Spacecrafts";
 import SpaceTravelApi from "./services/SpaceTravelApi";
-import Spacecraft from "./pages/Spacecraft";
 import { useEffect, useState } from "react";
-import { hideLoading, showLoading } from "./components/Loading";
 import { SpaceTravelContext } from "./context/SpaceTravelContext";
+
+import { router } from "./routes/Routes";
 
 function App()
 {
@@ -17,33 +13,6 @@ function App()
         crafts: [],
         planets: []
     });
-
-    const router = createBrowserRouter(
-        createRoutesFromElements(
-            <Route
-                path="/"
-                element={
-                    // create Layout
-                    <>
-                        <NavBar routes={['Planets', 'Spacecraft']} />
-                        <SpaceTravelContext.Provider value={spaceData}>
-                            <Outlet />
-                        </SpaceTravelContext.Provider>
-
-                    </>
-                }
-            >
-                <Route index element={<Homepage />} />
-                <Route path="/planets" element={<Planets />} />
-                <Route path="/spacecraft" element={<Spacecrafts />} />
-
-                <Route path="ships/:id" element={<Spacecraft />} />
-
-                <Route path="/*" element={<div>404</div>} />
-
-            </Route>
-        )
-    );
 
     // async function that will run on page load and retrieve the list of spacecraft and planets to give to child components
     async function getSpaceData() 
@@ -75,7 +44,10 @@ function App()
     return (
         <>
             <h1>Space Travel</h1>
-            <RouterProvider router={router} />
+            <SpaceTravelContext.Provider value={spaceData}>
+                <RouterProvider router={router} />
+            </SpaceTravelContext.Provider>
+            
         </>
     );
 }
