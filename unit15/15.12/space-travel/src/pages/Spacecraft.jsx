@@ -58,6 +58,7 @@ export default function Spacecraft()
             <h4>Name: {craft.name}</h4>
             <p>Capacity: {craft.capacity} passengers</p>
             <p>Current location: {planets[craft.currentLocation].name}</p>
+            <img src={craft.pictureUrl}></img>
             <p>{craft.description}</p>
         </div>
     );

@@ -10,29 +10,6 @@ import "./Planets.css";
 
 export default function Planets()
 {
-    // read planets to display page
-    // const [planets, setPlanets] = useState([]);
-
-    // async function showPlanets()
-    // {
-    //     showLoading();
-
-    //     let res = await SpaceTravelApi.getPlanets();
-    //     if (res.isError)
-    //     {
-    //         console.error("Fetching planets failed");
-    //     }
-    //     else
-    //     {
-    //         setPlanets(res.data);
-    //     }
-
-    //     hideLoading();
-    // }
-
-    // // update planet list on startup
-    // useEffect(() => { showPlanets(); }, []);
-
     const planets = useContext(SpaceTravelContext).planets;
 
     return (
