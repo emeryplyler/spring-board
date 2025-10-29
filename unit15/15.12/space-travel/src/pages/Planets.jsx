@@ -24,7 +24,13 @@ export default function Planets()
                             // check if any ships are here
                             (locations.filter(location => location.planet === index).map((locat, ind) =>
                             {
-                                return (<div key={ind}>{locat.spacecraft}</div>);
+                                return (
+                                    <div key={ind}>
+                                        <p>{locat.spacecraft}</p>
+                                        {/* TODO: add a default icon for ships without pictures? */}
+                                        <img id='craft-icon' src={locat.icon}></img>
+                                    </div>
+                                );
                             }))
                         }
                     </div>

@@ -40,7 +40,7 @@ function App()
             setSpaceData(prevData => ({ ...prevData, planets: planetRes.data }));
         }
     }
-    useEffect(() => { getSpaceData(); }, []);
+    useEffect(() => { getSpaceData(); }, [spaceData]);
 
     if (spaceData.planets.length < 1 || spaceData.crafts.length < 1)
     {

@@ -5,6 +5,7 @@ import Homepage from "../pages/Homepage";
 import Planets from "../pages/Planets";
 import Spacecrafts from "../pages/Spacecrafts";
 import Spacecraft from "../pages/Spacecraft";
+import Construction from "../pages/Construction";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -21,6 +22,7 @@ export const router = createBrowserRouter(
             <Route index element={<Homepage />} />
             <Route path="/planets" element={<Planets />} />
             <Route path="/spacecraft" element={<Spacecrafts />} />
+            <Route path="/construction" element={<Construction />} />
 
             <Route path="ships/:id" element={<Spacecraft />} />
 

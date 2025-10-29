@@ -14,6 +14,7 @@ export default function Spacecrafts()
                     <Link key={index} to={`/ships/${spacecraft.id}`}>{spacecraft.name}</Link>
                 ))
             }
+            <Link to={"/construction"} >Construct new spacecraft</Link>
         </div>
     );
 }
