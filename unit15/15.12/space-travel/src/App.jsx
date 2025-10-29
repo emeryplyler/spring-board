@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { SpaceTravelContext } from "./context/SpaceTravelContext";
 
 import { router } from "./routes/Routes";
+import Loading from "./components/Loading";
 
 function App()
 {
@@ -31,15 +32,22 @@ function App()
         let planetRes = await SpaceTravelApi.getPlanets();
         if (planetRes.isError || !planetRes.data)
         {
-            console.error("couldn't get planet array")
+            console.error("couldn't get planet array");
         }
         else
         {
             // update planets property
-            setSpaceData(prevData => ({ ...prevData, planets: planetRes.data}))
+            setSpaceData(prevData => ({ ...prevData, planets: planetRes.data }));
         }
     }
     useEffect(() => { getSpaceData(); }, []);
+
+    if (spaceData.planets.length < 1 || spaceData.crafts.length < 1)
+    {
+        return (
+            <Loading />
+        );
+    }
 
     return (
         <>
@@ -47,7 +55,7 @@ function App()
             <SpaceTravelContext.Provider value={spaceData}>
                 <RouterProvider router={router} />
             </SpaceTravelContext.Provider>
-            
+
         </>
     );
 }
