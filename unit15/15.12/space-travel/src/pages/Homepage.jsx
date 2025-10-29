@@ -18,7 +18,7 @@ export default function Homepage()
             desc: "Space Travel empowers you to engineer, design, and even dismantle spacecraft. Craft vessels that defy the boundaries of imagination, envisioning a future where life flourishes beyond the stars. But remember, your role extends beyond construction - you are a leader, an explorer, a commander steering humanity's destiny."
         }
     ];
-    // list?
+
     return (
         <div>
             {

@@ -24,7 +24,7 @@ export const router = createBrowserRouter(
 
             <Route path="ships/:id" element={<Spacecraft />} />
 
-            <Route path="/*" element={<div>404</div>} />
+            <Route path="/*" element={<div>404: Page not found</div>} />
 
         </Route>
     )

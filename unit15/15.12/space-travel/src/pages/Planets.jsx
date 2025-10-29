@@ -1,9 +1,7 @@
 // list all planets
 // let user select a planet for travel
 
-import React, { useContext, useEffect, useState } from 'react';
-import SpaceTravelApi from '../services/SpaceTravelApi';
-import Loading, { showLoading, hideLoading } from '../components/Loading';
+import { useContext } from 'react';
 import { SpaceTravelContext } from '../context/SpaceTravelContext';
 
 import "./Planets.css";

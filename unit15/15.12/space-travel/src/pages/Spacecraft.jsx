@@ -1,21 +1,6 @@
-// display detailed info on specific spacecraft
-/*
-
-{
-    id: <string>,
-    name: <string>,
-    capacity: <int>,
-    description: <string>,
-    pictureUrl: [<string>],
-    currentLocation: <int>
-  }
-
-*/
-// dynamic page
-
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SpaceTravelApi from '../services/SpaceTravelApi';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { SpaceTravelContext } from '../context/SpaceTravelContext';
 import Loading from '../components/Loading';
 
