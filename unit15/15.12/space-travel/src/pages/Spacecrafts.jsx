@@ -25,15 +25,9 @@ export default function Spacecrafts()
         setLoading(false); // done loading
     };
 
-    if (loading)
-    {
-        return (
-            <Loading />
-        );
-    }
-
     return (
         <div>
+            {loading && <Loading />}
             Spacecrafts
             {
                 spacecrafts.map((spacecraft, index) => (

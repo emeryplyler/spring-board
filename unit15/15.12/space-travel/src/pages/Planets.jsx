@@ -52,15 +52,11 @@ export default function Planets()
         }
     };
 
-    if (loading)
-    {
-        return (
-            <Loading />
-        );
-    }
+
 
     return (
         <div>
+            { loading && <Loading />}
             Planets:
             {
                 planets.map((planet, index) => (

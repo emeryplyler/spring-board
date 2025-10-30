@@ -65,7 +65,7 @@ function App()
         moveSpacecraft
     };
 
-
+    // replaces entire page with loading screen since this is initial loading instead of refresh
     if (spaceData.planets.length < 1 || spaceData.crafts.length < 1)
     {
         return (

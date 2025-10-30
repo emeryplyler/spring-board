@@ -1,0 +1,28 @@
+#loading {
+    position: absolute;
+
+    /* These four together make it be in the center of the page: */
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: 10em;
+
+    top: 100px;
+    height: 10em;
+
+    border-radius: 50%;
+    /* border-color: rgb(173, 201, 252); */
+    /* border-style: inset; */
+    border: 2em solid rgb(173, 201, 252);
+    border-top-color:transparent;
+
+    animation: load 1s linear infinite;
+}
+
+@keyframes load {
+    from {
+        transform: rotate(0turn);
+    } to {
+        transform: rotate(1turn);
+    }
+}

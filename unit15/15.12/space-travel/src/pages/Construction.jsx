@@ -33,7 +33,7 @@ export default function Construction()
     {
         ev.preventDefault();
         setLoading(true);
-        
+
         await SpaceTravelApi.buildSpacecraft(formData); // send information to db
         await update(); // update state array tracking list of spacecraft
 
@@ -41,15 +41,9 @@ export default function Construction()
         setLoading(false);
     };
 
-    if (loading)
-    {
-        return (
-            <Loading />
-        );
-    }
-
     return (
         <div className='construction-form' onSubmit={handleSubmit}>
+            {loading && <Loading />}
             <h3>Spacecraft Construction</h3>
             <form>
                 <input

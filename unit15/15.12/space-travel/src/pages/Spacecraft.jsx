@@ -21,7 +21,7 @@ export default function Spacecraft()
             const res = await SpaceTravelApi.getSpacecraftById({ id });
             if (res.isError || !res.data)
             {
-                throw new Error(`Spacecraft not found using id ${id}`);
+                console.error(`Spacecraft not found using id ${id}`);
             }
             setCraft(res.data); // update craft
         };
@@ -31,6 +31,7 @@ export default function Spacecraft()
     }, []);
 
     // make sure to wait for both the Spacecraft api call here and the Planets api call in App.jsx
+    // also, this loading screen also has to replace the page because craft is initially null and can't render
     if (!craft || planets.length < 1)
     {
         return (
