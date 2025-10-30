@@ -74,12 +74,12 @@ function App()
     }
 
     return (
-        <>
+        <div>
             <h1>Space Travel</h1>
             <SpaceTravelContext.Provider value={contextValue}>
                 <RouterProvider router={router} />
             </SpaceTravelContext.Provider>
-        </>
+        </div>
     );
 }
 

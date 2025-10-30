@@ -1,9 +1,11 @@
+import './Homepage.css';
+
 export default function Homepage()
 {
     const info = [
         {
             title: "Journey into the Future",
-            desc: "In a world where the impossible has become reality, where the stars are no longer out of reach, welcome to the future of humanity's survival and exploration. Witness the evolution of technology as it terraforms barren planets into living havens, all made possible by the wonders of innovation adn human determination."
+            desc: "In a world where the impossible has become reality, where the stars are no longer out of reach, welcome to the future of humanity's survival and exploration. Witness the evolution of technology as it terraforms barren planets into living havens, all made possible by the wonders of innovation and human determination."
         },
         {
             title: "From Neglect to Innovation",
@@ -20,7 +22,7 @@ export default function Homepage()
     ];
 
     return (
-        <div>
+        <div className='homepage'>
             {
                 info.map((item, index) => (
                     <div key={index}>
