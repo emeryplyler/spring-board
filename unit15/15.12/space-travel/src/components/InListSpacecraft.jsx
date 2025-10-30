@@ -9,7 +9,7 @@ export default function InListSpacecraft({ id, name, capacity, destroy })
         <div className='in-list-spacecraft'>
             <Link to={`/ships/${id}`}>{name}</Link>
             Capacity: {capacity}
-            <button onClick={() => destroySpacecraft(id)}>Destroy Spacecraft</button>
+            <button onClick={() => destroy(id)}>Destroy Spacecraft</button>
         </div>
     );
 }

@@ -44,9 +44,18 @@ function App()
     useEffect(() => { getSpaceData(); }, []);
 
     // function to delete a spacecraft; called by InListSpacecraft
-    const destroySpacecraft = (id) =>
+    const destroySpacecraft = async (id) =>
     {
-        console.log("destroy ship with id " + id);
+        // const res = await SpaceTravelApi.destroySpacecraftById({id});
+        // if (res.isError)
+        // {
+        //     console.error("Couldn't destroy spacecraft with id " + id);
+        // }
+        // else
+        // {
+        //     getSpaceData();
+        // }
+        return SpaceTravelApi.destroySpacecraftById({id});
     }
 
     // context value to pass down to child elements
