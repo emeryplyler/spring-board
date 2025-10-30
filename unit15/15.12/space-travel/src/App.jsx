@@ -14,6 +14,8 @@ function App()
         crafts: [],
         planets: []
     });
+    const [selectedPlanet, setSelectedPlanet] = useState(null);
+    const [selectedCraft, setSelectedCraft] = useState(null);
 
     // async function that will run on page load and retrieve the list of spacecraft and planets to give to child components
     // also called by Construction and InListSpacecraft when ships are created and deleted
@@ -47,16 +49,18 @@ function App()
     const destroySpacecraft = async (id) =>
     {
         // return the entire promise so Spacecrafts can handle the waiting process
-        return SpaceTravelApi.destroySpacecraftById({id});
-    }
+        return SpaceTravelApi.destroySpacecraftById({ id });
+    };
 
     // context value to pass down to child elements
     const contextValue = {
         crafts: spaceData.crafts,
         planets: spaceData.planets,
         destroySpacecraft,
-        update: getSpaceData
-    }
+        update: getSpaceData,
+        selectedPlanet, setSelectedPlanet,
+        selectedCraft, setSelectedCraft
+    };
 
 
     if (spaceData.planets.length < 1 || spaceData.crafts.length < 1)

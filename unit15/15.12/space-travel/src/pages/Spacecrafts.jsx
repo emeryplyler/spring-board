@@ -7,7 +7,7 @@ import Loading from '../components/Loading';
 export default function Spacecrafts()
 {
     const {crafts: spacecrafts, destroySpacecraft, update } = useContext(SpaceTravelContext);
-
+    const [selectedCraft, setSelectedCraft] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const destroy = async (id) =>
@@ -24,6 +24,11 @@ export default function Spacecrafts()
         }
         setLoading(false); // done loading
     };
+
+    const handleClick = (ev) =>
+    {
+        // select the craft that was clicked on 
+    }
 
     if (loading)
     {
