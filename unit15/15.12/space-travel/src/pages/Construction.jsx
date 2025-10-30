@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import SpaceTravelApi from '../services/SpaceTravelApi';
 import NavigateBackButton from '../components/NavigateBackButton';
 import { SpaceTravelContext } from '../context/SpaceTravelContext';
+import Loading from '../components/Loading';
 
 export default function Construction()
 {
@@ -14,6 +15,8 @@ export default function Construction()
 
     const [formData, setFormData] = useState(INITIAL_STATE);
     const { update } = useContext(SpaceTravelContext);
+
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (ev) =>
     {
@@ -29,13 +32,21 @@ export default function Construction()
     const handleSubmit = async (ev) =>
     {
         ev.preventDefault();
-
-        // TODO: add loading screen
+        setLoading(true);
+        
         await SpaceTravelApi.buildSpacecraft(formData); // send information to db
         await update(); // update state array tracking list of spacecraft
 
         setFormData(INITIAL_STATE);
+        setLoading(false);
     };
+
+    if (loading)
+    {
+        return (
+            <Loading />
+        );
+    }
 
     return (
         <div className='construction-form' onSubmit={handleSubmit}>
