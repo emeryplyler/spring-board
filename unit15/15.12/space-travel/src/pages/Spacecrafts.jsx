@@ -6,25 +6,23 @@ import Loading from '../components/Loading';
 
 export default function Spacecrafts()
 {
-    const {crafts: spacecrafts, destroySpacecraft: dest, update } = useContext(SpaceTravelContext);
-    // const dest = useContext(SpaceTravelContext).destroySpacecraft;
+    const {crafts: spacecrafts, destroySpacecraft, update } = useContext(SpaceTravelContext);
 
     const [loading, setLoading] = useState(false);
 
     const destroy = async (id) =>
     {
-        setLoading(true);
-        const res = await dest(id);
-        console.log(res);
+        setLoading(true); // start the delete process; hide behind loading screen
+        const res = await destroySpacecraft(id); // retrieve promise from destroy function in App.jsx and wait for it
         if (res.isError)
         {
             console.error("couldn't destroy ship with id " + id);
         }
         else
         {
-            await update();
+            await update(); // call the update function to update the state array of ships and wait for it to finish updating
         }
-        setLoading(false);
+        setLoading(false); // done loading
     };
 
     if (loading)

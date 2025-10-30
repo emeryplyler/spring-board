@@ -43,18 +43,10 @@ function App()
     }
     useEffect(() => { getSpaceData(); }, []);
 
-    // function to delete a spacecraft; called by InListSpacecraft
+    // function to delete a spacecraft; called by Spacecrafts.jsx
     const destroySpacecraft = async (id) =>
     {
-        // const res = await SpaceTravelApi.destroySpacecraftById({id});
-        // if (res.isError)
-        // {
-        //     console.error("Couldn't destroy spacecraft with id " + id);
-        // }
-        // else
-        // {
-        //     getSpaceData();
-        // }
+        // return the entire promise so Spacecrafts can handle the waiting process
         return SpaceTravelApi.destroySpacecraftById({id});
     }
 
@@ -80,7 +72,6 @@ function App()
             <SpaceTravelContext.Provider value={contextValue}>
                 <RouterProvider router={router} />
             </SpaceTravelContext.Provider>
-
         </>
     );
 }
