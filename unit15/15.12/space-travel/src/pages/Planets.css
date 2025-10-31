@@ -2,14 +2,19 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-}
-
-.planet {
     text-align: center;
 }
 
 #planet-container img {
     max-height: 100px;
+}
+
+.planet-craft {
+    /* This was the only way I could find to center text in a box */
+    display: flex;
+    justify-content: center;
+    margin: 0.5em 0;
+    padding: 0.3em;
 }
 
 .planet-craft:hover {
@@ -19,10 +24,6 @@
 #planet-container h5 {
     font-weight: 600;
     margin-bottom: 1em;
-}
-
-#planet-container p {
-    margin-top: 1em;
 }
 
 #planet-icon {

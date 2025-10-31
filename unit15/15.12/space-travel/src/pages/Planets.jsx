@@ -24,7 +24,7 @@ export default function Planets()
         // is planet already selected? if not, deselect the old one
         if (selectedPlanet && planets[id] != selectedPlanet)
         {
-            // planetElements.current[selectedPlanet.id] = "planet";
+            // cannot find a specific planet; reset all planets
             planetElements.current.forEach(p => p.className = "planet");
         }
         // select the planet that was clicked on
@@ -75,11 +75,11 @@ export default function Planets()
             {loading && <Loading />}
             {
                 planets.map((planet, index) => (
-                    <div 
-                        className='planet' 
-                        tabIndex={0} 
-                        key={index} 
-                        onClick={(ev) => handlePlanetClick(ev, planet.id, index)} 
+                    <div
+                        className='planet'
+                        tabIndex={0}
+                        key={index}
+                        onClick={(ev) => handlePlanetClick(ev, planet.id, index)}
                         // ref accepts a function; the argument passed to it will be the node in the dom
                         ref={element => planetElements.current[index] = element}
                     >
