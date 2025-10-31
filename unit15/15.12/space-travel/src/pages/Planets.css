@@ -1,8 +1,39 @@
-img {
+#planet-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.planet {
+    text-align: center;
+}
+
+#planet-container img {
     max-height: 100px;
 }
 
-:focus #planet-icon {
+.planet-craft:hover {
+    box-shadow: 0 0 1px 3px rgb(199, 217, 255)
+}
+
+#planet-container h5 {
+    font-weight: 600;
+    margin-bottom: 1em;
+}
+
+#planet-container p {
+    margin-top: 1em;
+}
+
+#planet-icon {
+    transition: box-shadow 0.1s;
+}
+
+#planet-icon:hover {
+    box-shadow: 0 0 1px 3px rgb(199, 217, 255)
+}
+
+.planet-selected #planet-icon {
     /* image inside focused element within Planets will be selected here */
-    box-shadow: 0 0 1px 3px rgb(65, 125, 255) ;
+    box-shadow: 0 0 1px 3px rgb(65, 125, 255);
 }

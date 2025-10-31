@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { SpaceTravelContext } from '../context/SpaceTravelContext';
 
 import "./Planets.css";
@@ -16,17 +16,33 @@ export default function Planets()
     // { planet index, spacecraft name and link, icon }
     const locations = crafts.map(craft => ({ planet: craft.currentLocation, spacecraft: craft, icon: craft.pictureUrl }));
 
-    const handlePlanetClick = (ev, id) =>
+    // array of refs to planet components/elements
+    const planetElements = useRef([]);
+
+    const handlePlanetClick = (ev, id, key) =>
     {
+        // is planet already selected? if not, deselect the old one
+        if (selectedPlanet && planets[id] != selectedPlanet)
+        {
+            // planetElements.current[selectedPlanet.id] = "planet";
+            planetElements.current.forEach(p => p.className = "planet");
+        }
         // select the planet that was clicked on
         setSelectedPlanet(planets[id]);
+        // add the 'selected' class to that element using the key
+        planetElements.current[key].className = "planet-selected";
     };
 
     const handleCraftClick = async (ev, id) =>
     {
+        ev.stopPropagation();
         // find this ship's object
-        console.log(id);
         let thisCraft = crafts.find(craft => craft.id === id);
+        // has a planet been selected?
+        if (!selectedPlanet)
+        {
+            return;
+        }
         // check if ship is already on selectedPlanet; if so, return
         if (thisCraft.currentLocation === selectedPlanet.id)
         {
@@ -55,12 +71,18 @@ export default function Planets()
 
 
     return (
-        <div>
-            { loading && <Loading />}
-            Planets:
+        <div id='planet-container'>
+            {loading && <Loading />}
             {
                 planets.map((planet, index) => (
-                    <div tabIndex={0} key={index} onClick={(ev) => handlePlanetClick(ev, planet.id)}>
+                    <div 
+                        className='planet' 
+                        tabIndex={0} 
+                        key={index} 
+                        onClick={(ev) => handlePlanetClick(ev, planet.id, index)} 
+                        // ref accepts a function; the argument passed to it will be the node in the dom
+                        ref={element => planetElements.current[index] = element}
+                    >
                         <h5>{planet.name}</h5>
                         <img id='planet-icon' src={planet.pictureUrl}></img>
                         {
@@ -68,7 +90,7 @@ export default function Planets()
                             (locations.filter(location => location.planet === index).map((locat, ind) =>
                             {
                                 return (
-                                    <div key={ind} onClick={(ev) => handleCraftClick(ev, locat.spacecraft.id)}>
+                                    <div className='planet-craft' key={ind} onClick={(ev) => handleCraftClick(ev, locat.spacecraft.id)}>
                                         <p>{locat.spacecraft.name}</p>
                                         {/* TODO: add a default icon for ships without pictures? */}
                                         <img id='craft-icon' src={locat.icon} ></img>
