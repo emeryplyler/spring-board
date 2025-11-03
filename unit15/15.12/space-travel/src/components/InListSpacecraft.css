@@ -1,0 +1,13 @@
+.in-list-spacecraft {
+    display: grid;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 1000px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.in-list-spacecraft a, .in-list-spacecraft p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,15 @@
+.spacecrafts a {
+    color: white;
+    text-decoration: none;
+    
+}
+
+.spacecrafts a:hover {
+    box-shadow: 0 0 1px 3px rgb(199, 217, 255)
+}
+
+#construct-link {
+    position: relative;
+    top: 1em;
+    padding: 1em;
+}

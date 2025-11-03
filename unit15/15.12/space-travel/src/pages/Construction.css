@@ -1,0 +1,21 @@
+.construction-form input {
+    display: block;
+    margin: 2em 0;
+
+    font-family: inherit;
+    font-size: inherit;
+
+    min-width: 16em;
+}
+
+.construction-form textarea {
+    font-family: inherit;
+    font-size: inherit;
+
+    min-width: 16em;
+    min-height: 3em;
+}
+
+.construction-form button {
+    margin: 0.5em 0;
+}

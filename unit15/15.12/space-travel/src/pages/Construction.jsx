@@ -4,6 +4,8 @@ import NavigateBackButton from '../components/NavigateBackButton';
 import { SpaceTravelContext } from '../context/SpaceTravelContext';
 import Loading from '../components/Loading';
 
+import './Construction.css';
+
 export default function Construction()
 {
     const INITIAL_STATE = {
@@ -44,7 +46,7 @@ export default function Construction()
     return (
         <div className='construction-form' onSubmit={handleSubmit}>
             {loading && <Loading />}
-            <h3>Spacecraft Construction</h3>
+            <h4>Spacecraft Construction</h4>
             <form>
                 <input
                     type='text'
@@ -59,11 +61,11 @@ export default function Construction()
                     name='capacity'
                     placeholder='Passenger capacity'
                     required
+                    min={0}
                     value={formData.capacity}
                     onChange={handleChange}
                 />
-                <input
-                    type='text'
+                <textarea
                     name='description'
                     placeholder='Description of spacecraft'
                     required

@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { SpaceTravelContext } from '../context/SpaceTravelContext';
 import Loading from '../components/Loading';
 
+import './Spacecraft.css';
+
 // is passed a spacecraft object
 export default function Spacecraft()
 {
@@ -40,7 +42,7 @@ export default function Spacecraft()
     }
 
     return (
-        <div>
+        <div className='spacecraft'>
             <h4>Name: {craft.name}</h4>
             <p>Capacity: {craft.capacity} passengers</p>
             <p>Current location: {planets[craft.currentLocation].name}</p>

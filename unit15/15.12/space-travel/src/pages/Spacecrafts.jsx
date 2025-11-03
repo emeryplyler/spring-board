@@ -4,6 +4,8 @@ import { SpaceTravelContext } from '../context/SpaceTravelContext';
 import InListSpacecraft from '../components/InListSpacecraft';
 import Loading from '../components/Loading';
 
+import './Spacecrafts.css';
+
 export default function Spacecrafts()
 {
     const { crafts: spacecrafts, destroySpacecraft, update } = useContext(SpaceTravelContext);
@@ -26,15 +28,14 @@ export default function Spacecrafts()
     };
 
     return (
-        <div>
+        <div className='spacecrafts'>
             {loading && <Loading />}
-            Spacecrafts
             {
                 spacecrafts.map((spacecraft, index) => (
                     <InListSpacecraft key={index} id={spacecraft.id} name={spacecraft.name} capacity={spacecraft.capacity} destroy={destroy} />
                 ))
             }
-            <Link to={"/construction"} >Construct new spacecraft</Link>
+            <Link to={"/construction"} id='construct-link' >Construct new spacecraft</Link>
         </div>
     );
 }
