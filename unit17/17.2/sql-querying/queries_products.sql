@@ -26,14 +26,16 @@ INSERT INTO products (name, price, can_be_returned) VALUES
 -- 8: display only products that can be returned
 SELECT * FROM products 
 WHERE can_be_returned = true;
+-- Can also be written as:
+-- WHERE can_be_returned;
 
 -- 9: display only products under $44
 SELECT * FROM products 
-WHERE price < 44;
+WHERE price < 44.00;
 
 -- 10: display only products from $22.50 to $99.99
 SELECT * FROM products 
-WHERE price BETWEEN 22.5 AND 99.99;
+WHERE price BETWEEN 22.50 AND 99.99;
 
 -- 11: everything is $20 off
 UPDATE products
