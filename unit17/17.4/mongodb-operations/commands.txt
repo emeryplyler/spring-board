@@ -1,0 +1,138 @@
+Using MongoDB Compass
+
+Create
+1.
+{
+  "_id": {
+    "$oid": "6952dc1c9f5fbb102ea23452"
+  },
+  "name": "John Doe",
+  "email": "jdoe@gmail.com"
+}
+
+
+
+Read
+1.
+{ directors: ["Christopher Nolan"] }
+
+2.
+{ genres: ["Action"] }
+Sort:
+{ year: -1 }
+
+3.
+{ "imdb.rating": { $gt: 8 } }
+Project:
+{ title: 1, imdb: 1 }
+
+4.
+{ $and: [ { cast: "Tim Allen" }, { cast: "Tom Hanks" } ] }
+
+5.
+{ cast: ["Tom Hanks", "Tim Allen"] }
+
+6.
+{ $and: [ { genres: "Comedy" }, { directors: "Steven Spielberg" } ] }
+
+
+
+Update
+
+1.
+Filter:
+{ title: 'The Matrix' }
+
+Update:
+{
+  $set: {
+    available_on: "Sflix"
+  },
+}
+
+2.
+Filter:
+{ title: 'The Matrix' }
+
+Update:
+{
+  $inc: {
+    metacritic: 1
+  }
+}
+
+3.
+Filter:
+{ year: 1997 }
+
+Update:
+{
+  $addToSet: {
+    genres: "Gen Z"
+  }
+}
+
+4.
+Filter:
+{ 'imdb.rating': { $lt: 5 } }
+
+Update:
+{
+  $inc: {
+    "imdb.rating": 1
+  }
+}
+
+
+
+Delete
+
+1. 
+Filter:
+{ _id: ObjectId('5a9427648b0beebeb6957a88') }
+Delete
+
+2.
+Find The Matrix's id:
+{ title: "The Matrix" }
+_id: ObjectId('573a139bf29313caabcf3d23')
+
+Find comments using this as the movie_id:
+{ movie_id: ObjectId('573a139bf29313caabcf3d23') }
+Delete
+
+3.
+Filter:
+{ genres: { $size: 0 } }
+Delete
+
+
+
+Aggregate
+
+1.
+Stage 1: $group
+{
+  _id: "$year",
+  count: {
+    $sum: 1
+  }
+}
+
+Stage 2: $sort
+{
+  _id: 1
+}
+
+2.
+Stage 1: $unwind
+"$directors"
+// unwind is for sorting by each item in an array
+
+Stage 2: $group
+{
+  _id: "$directors",
+  average_rating: {
+    $avg: "$imdb.rating"
+  }
+}
