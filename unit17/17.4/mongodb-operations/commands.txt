@@ -136,3 +136,8 @@ Stage 2: $group
     $avg: "$imdb.rating"
   }
 }
+
+Stage 3: $sort
+{
+  average_rating: 1
+}
