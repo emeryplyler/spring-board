@@ -1,10 +1,7 @@
 /** Command-line tool to generate Markov text. */
 
-// input:  $ node makeText.js file eggs.txt
-// output: ... generated text from file 'eggs.txt' ...
-//         ghjfhgjkdjfh dhfjh  dhkjf t etc.
-
 const fs = require('fs');
+const axios = require('axios');
 const markov = require('./markov');
 
 function markovFile(path) {
@@ -21,4 +18,26 @@ function markovFile(path) {
     })
 }
 
-markovFile(process.argv[3]);
+async function markovUrl(url) {
+    text = "";
+    let response;
+    try {
+        response = await axios.get(url);
+        console.log(response.data);
+    } catch (err) {
+        console.log(`Couldn't fetch from ${url}: ${err}`);
+        process.exit(1);
+    }
+    let mm = new markov.MarkovMachine(response.data);
+    mm.makeText();
+}
+
+// depending on if argument 2 is 'file' or 'url', call different function
+
+if (process.argv[2] === "file") {
+    markovFile(process.argv[3]);
+} else if (process.argv[2] === "url") {
+    markovUrl(process.argv[3]);
+}
+
+
