@@ -1,5 +1,17 @@
 const express = require('express');
 
+// three routes, /mean /median /mode  , accepting GET requests
+// each route takes a query key of 'nums', comma separated list
+// example
+// /mean?nums=1,3,5,7
+// response should be a json
+// response: {
+//   operation: "mean",
+//   value: 4
+// }
+// invalid inputs should return 400 bad request
+// empty input should also return 400 bad request
+
 // create instance of express app
 const app = express();
 
@@ -15,8 +27,24 @@ app.get('/', (req, res) => {
     res.sendFile('./views/index.html', { root: __dirname });
 });
 
-app.get('/about', (req, res) => {
-    res.send('<p>about page</p>');
+app.get('/mean', (req, res) => {
+    let meanPage = "<p>mean/average</p>";
+    console.log(req.query.nums);
+    if (!req.query.nums) {
+        meanPage += '<p>Blank input: please enter some numbers.</p>';
+    } else {
+        let numbers = req.query.nums.split(",");
+        for (i in numbers) {
+            if (isNaN(numbers[i])) {
+                meanPage += `<p>${numbers[i]} is not a valid number.</p>`
+            } else {
+                numbers[i] = parseInt(numbers[i]);
+            }
+        }
+        // console.log(isNaN("f"));
+        console.log(numbers[0] + numbers[1]);
+    }
+    res.send(meanPage);
 });
 
 // the 404 page just needs to be at the bottom;
