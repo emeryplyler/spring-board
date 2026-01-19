@@ -28,33 +28,34 @@ app.get('/', (req, res) => {
 });
 
 app.get('/mean', (req, res) => {
-    let meanPage = "<p>Mean (Average)</p>";
-    let badReq = false; // status flag
+    let meanRes = {
+        operation: "mean",
+        result: null
+    };
     let numbers;
     if (!req.query.nums) {
-        meanPage += '<p>Blank input: please enter some numbers.</p>';
-        badReq = true;
+        res.status(400).send({
+            message: "Blank input: please enter some numbers."
+        });
+        return;
     } else {
         numbers = req.query.nums.split(",");
         for (i in numbers) {
             if (isNaN(numbers[i])) {
-                meanPage += `<p>${numbers[i]} is not a valid number.</p>`
-                badReq = true;
+                res.status(400).send({
+                    message: `Bad input: ${numbers[i]} is not a valid number.`
+                });
+                return;
             } else {
                 numbers[i] = parseInt(numbers[i]);
             }
         }
     }
-    if (badReq) {
-        res.status(400).send(meanPage);
-    } else {
-        // calculate mean
-        let sum = numbers.reduce((prevNum, curNum) => prevNum + curNum, 0);
-        let mean = sum / numbers.length;
-        meanPage += `<p>Mean: ${mean}</p>`
-        res.status(200).send(meanPage);
-    }
-    
+    // calculate mean
+    let sum = numbers.reduce((prevNum, curNum) => prevNum + curNum, 0);
+    let mean = sum / numbers.length;
+    meanRes.result = mean;
+    res.status(200).send(meanRes);
 });
 
 // the 404 page just needs to be at the bottom;
