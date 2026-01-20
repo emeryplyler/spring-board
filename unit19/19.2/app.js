@@ -1,31 +1,10 @@
 const express = require('express');
 
-// three routes, /mean /median /mode  , accepting GET requests
-// each route takes a query key of 'nums', comma separated list
-// example
-// /mean?nums=1,3,5,7
-// response should be a json
-// response: {
-//   operation: "mean",
-//   value: 4
-// }
-// invalid inputs should return 400 bad request
-// empty input should also return 400 bad request
-
 // create instance of express app
 const app = express();
 
 // listen for requests
 app.listen(3000);
-
-app.get('/', (req, res) => {
-    // res.send('<p>home page</p>');
-    // by default, express looks for absolute path
-    // pass another argument, the options object
-    // specify what the root of the path is
-    // __dirname is just the current folder that this file is in
-    res.sendFile('./views/index.html', { root: __dirname });
-});
 
 function validateNumbers(queryString) {
     if (!queryString) return "blank";
@@ -42,6 +21,7 @@ function validateNumbers(queryString) {
     return numbers;
 }
 
+// mean
 app.get('/mean', (req, res) => {
     let meanRes = {
         operation: "mean",
@@ -107,14 +87,48 @@ app.get('/median', (req, res) => {
     }
 });
 
-// the 404 page just needs to be at the bottom;
-// express reads from top to bottom looking for responses
-// if a response is sent, it stops reading
-// this code will only be reached if the request didn't matched anything else
-// use() will fire off for every request, it's not scoped to a certain url
-app.use((req, res) => {
-    // res.send("<p>404: oops, not found</p>");
+// mode
+app.get('/mode', (req, res) => {
+    let state = validateNumbers(req.query.nums);
+    if (state === "blank") {
+        res.status(400).send({
+            message: "Blank input: please enter some numbers."
+        });
+    } else if (state[0] === "invalid") {
+        res.status(400).send({
+            message: `Bad input: ${state[1]} is not a valid number.`
+        });
+    } else {
+        let mode = {
+            operation: "mode",
+            result: null
+        }
+        // how many times does each item appear?
+        state.sort((a, b) => a - b); // first, sort from least to greatest
 
-    // set status to actually be 404
-    res.status(404).send("<p>404: oops, not found</p>");
-})
+        const freqMap = {};
+        state.forEach(number => {
+            // if number is already in freqmap, it adds 1 to number's count
+            // if number is not in freqmap, the expression returns 0 and the number is added to freqmap with a count of 1
+            freqMap[number] = (freqMap[number] || 0) + 1;
+        });
+
+        let modes = [];
+        let maxFreq = 0;
+
+        for (const num in freqMap) {
+            const freq = freqMap[num]; // grab value using key
+            if (freq > maxFreq) {
+                maxFreq = freq;
+                modes = [parseInt(num)];
+            } else if (freq === maxFreq) {
+                // equal frequency; this is also a mode
+                modes.push(parseInt(num));
+            }
+        }
+
+        mode.result = modes;
+
+        res.status(200).send(mode);
+    }
+});
