@@ -31,13 +31,15 @@ router
                 res.status(500).send({ message: err });
             }
         }
-    })
+    });
 
 router
     .route("/:name")
     .get((req, res) => {
+        // GET (specific) - returns one item
         // use indexOf to find object in array where item.name = req.params.name
         let index = items.findIndex((element) => element.name === req.params.name);
+        // if there are duplicates, this should only return the first item with that name
         if (index === -1) {
             // couldn't find that item
             res.status(404).send({
@@ -52,6 +54,7 @@ router
         }
     })
     .patch((req, res) => {
+        // PATCH - update an item's information
         let index = items.findIndex((element) => element.name === req.params.name);
         if (index === -1) {
             // couldn't find that item
@@ -70,3 +73,24 @@ router
             });
         }
     })
+    .delete((req, res) => {
+        // DELETE - remove an item from the db
+        let index = items.findIndex((element) => element.name === req.params.name);
+        if (index === -1) {
+            // couldn't find that item
+            res.status(404).send({
+                message: "Couldn't find an item with the name " + req.params.name
+            });
+        } else {
+            try {
+                items.splice(index, 1);
+                res.status(200).send({
+                    message: "Deleted"
+                });
+            } catch (err) {
+                res.status(500).send({
+                    message: `Couldn't delete that item: ${err}`
+                });
+            }
+        }
+    });
