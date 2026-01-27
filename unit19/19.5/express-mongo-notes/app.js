@@ -9,11 +9,14 @@ mongoose.connect(mongoURI)
     .then((result) => console.log('connected to db'))
     .catch((err) => console.log(err));
 
+// middleware
+app.use(express.urlencoded({ extended: true })); // passes url encoded data as an object
+
 app.get("/", (req, res) => {
-    res.status(200).send("<p>Homepage</p>");
+    res.status(200).sendFile(__dirname + "/index.html"); // send static content (index.html)
 });
 
-app.get("/add-blog", (req, res) => {
+app.get("/add-blank-blog", (req, res) => {
     // make a new instance of Blog document
     const newBlog = new Blog({
         // add properties; mongo will handle the timestamps
@@ -34,7 +37,7 @@ app.get("/add-blog", (req, res) => {
     // it worked!
 })
 
-app.get("/all-blogs", (req, res) => {
+app.get("/blogs", (req, res) => {
     // use blog model to get all documents in the collection
     Blog.find() // since Blog is attached to the 'blogs' collection, it will find all blogs
         .then((result) => {
@@ -46,16 +49,27 @@ app.get("/all-blogs", (req, res) => {
     // it worked
 });
 
-app.get("/single-blog", (req, res) => {
-    // mongo will handle converting the string into the objectId
-    Blog.findById('6978030a51b49b18095f8751')
+// handle post requests
+app.post("/blogs", (req, res) => {
+    const newBlog = new Blog(req.body); // can just pass object directly into constructor
+    newBlog.save()
         .then((result) => {
-            res.send(result);
+            res.redirect("/blogs"); // send back to blogs page
         })
         .catch((err) => {
             console.log(err);
         });
-    // it worked
-})
+});
+
+app.get("/blogs/:blogid", (req, res) => {
+    const id = req.params.blogid;
+    Blog.findById(id)
+        .then((result) => {
+            console.log(result);
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+});
 
 app.listen(3000);
