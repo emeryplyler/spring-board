@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const mongoose = require('mongoose');
 const Blog = require('./models/blog'); // import blog document model
 
@@ -7,8 +8,8 @@ app = express();
 // register view engine
 app.set('view engine', 'ejs'); // by default, looks for /views
 
-const mongoURI = "mongodb+srv://emery:SWtChvnKxXCpal1J@cluster0.lybzmpo.mongodb.net/?appName=Cluster0";
-mongoose.connect(mongoURI)
+// connect to db using .env variable
+mongoose.connect(process.env.MONGO_URI)
     .then((result) => console.log('connected to db'))
     .catch((err) => console.log(err));
 
