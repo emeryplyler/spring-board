@@ -9,14 +9,32 @@
     <!-- insert nav.ejs navbar -->
     <%- include("./partials/nav.ejs") %>
 
-    <div>
+    <div class="details">
         <h2><%= blog.title %></h2>
         <p><%= blog.body %></p>
         <a class="delete" data-doc="<%= blog._id %>">Delete</a>
     </div>
-</body>
+    <!-- insert footer -->
+    <%- include("./partials/footer.ejs") %>
 
-<!-- insert footer -->
-<%- include("./partials/footer.ejs") %>
+    <script>
+        const del = document.querySelector('a.delete');
+        del.addEventListener('click', (e) => {
+            // the deletion will happen at /blogs/blogid
+            // .dataset references the data-doc= blog._id from above
+            // it's "dataset.doc" because we named it "data-doc"
+            const endpoint = `/blogs/${del.dataset.doc}`;
+
+            // send a http delete request to specified endpoint (with the blog id at the end of it)
+            fetch(endpoint, {
+                method: "DELETE"
+            })
+            .then((response) => response.json()) // receive json with redirect instructions
+            .then((data) => window.location.href = data.redirect) // set location to the value of redirect in data json object, retrieved from response
+            .catch((err) => {console.log(err)});
+        });
+    </script>
+
+</body>
 
 </html>

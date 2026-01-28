@@ -68,4 +68,17 @@ app.get("/blogs/:blogid", (req, res) => {
         });
 });
 
+// handle delete requests for a specific blog
+app.delete("/blogs/:blogid", (req, res) => {
+    const id = req.params.blogid;
+    Blog.findByIdAndDelete(id)
+        .then(result => {
+            // when doing ajax requests you can't redirect the same way
+            res.json({ redirect: '/' }); // we pass a json with a redirect property
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
 app.listen(3000);
