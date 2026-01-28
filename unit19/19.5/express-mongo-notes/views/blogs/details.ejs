@@ -2,12 +2,12 @@
 <html lang="en">
 
 <!-- insert header -->
-<%- include("./partials/head.ejs") %>
+<%- include("../partials/head.ejs") %>
 
 <body>
     <p>Details</p>
     <!-- insert nav.ejs navbar -->
-    <%- include("./partials/nav.ejs") %>
+    <%- include("../partials/nav.ejs") %>
 
     <div class="details">
         <h2><%= blog.title %></h2>
@@ -15,7 +15,7 @@
         <a class="delete" data-doc="<%= blog._id %>">Delete</a>
     </div>
     <!-- insert footer -->
-    <%- include("./partials/footer.ejs") %>
+    <%- include("../partials/footer.ejs") %>
 
     <script>
         const del = document.querySelector('a.delete');
