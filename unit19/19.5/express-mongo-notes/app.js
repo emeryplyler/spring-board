@@ -16,6 +16,9 @@ mongoose.connect(process.env.MONGO_URI)
 // middleware
 app.use(express.urlencoded({ extended: true })); // passes url encoded data as an object
 
+// static files
+app.use(express.static("public"));
+
 app.get("/", (req, res) => {
     // use ejs to render a view
     // express will look for 'index' in the views folder
