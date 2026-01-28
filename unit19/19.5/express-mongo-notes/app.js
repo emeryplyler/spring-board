@@ -16,8 +16,6 @@ mongoose.connect(mongoURI)
 app.use(express.urlencoded({ extended: true })); // passes url encoded data as an object
 
 app.get("/", (req, res) => {
-    // res.status(200).sendFile(__dirname + "/index.html"); // send static content (index.html)
-
     // use ejs to render a view
     // express will look for 'index' in the views folder
     const blogs = [
@@ -64,7 +62,7 @@ app.get("/blogs", (req, res) => {
 
 // show form to make new blog
 app.get("/blogs/create", (req, res) => {
-    res.render("create");
+    res.render("create", { title: "New Blog" });
 });
 
 // handle post requests

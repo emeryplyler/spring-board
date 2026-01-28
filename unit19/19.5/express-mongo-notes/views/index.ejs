@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogging Site | <%= title %></title>
-</head>
+<!-- insert header -->
+<%- include("./partials/head.ejs") %>
 
 <body>
     <p>Homepage</p>
-    <nav>
-        <ul>
-            <li><a href="/">All Blogs</a></li>
-            <li><a href="/blogs/create">Make new blog</a></li>
-        </ul>
-    </nav>
+    <!-- insert nav.ejs navbar -->
+    <%- include("./partials/nav.ejs") %>
 
     <div>
         <h2>All Blogs</h2>
@@ -31,5 +24,8 @@
         <% } %>
     </div>
 </body>
+
+<!-- insert footer -->
+<%- include("./partials/footer.ejs") %>
 
 </html>

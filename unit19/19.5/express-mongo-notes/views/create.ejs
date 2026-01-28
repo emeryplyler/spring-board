@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Make a new blog</title>
-</head>
+<!-- insert header -->
+<%- include("./partials/head.ejs") %>
 
 <body>
-    <form style=" margin: 10em auto; width: fit-content;" action="/blogs" method="post">
+    <p>Create a new blog</p>
+
+    <!-- insert nav.ejs navbar -->
+    <%- include("./partials/nav.ejs") %>
+
+    <form class="create-blog" style="margin: 10em auto; width: fit-content;" action="/blogs" method="post">
         <label for="title">Title </label>
         <input type="text" name="title" id="title" required />
         <br>
@@ -19,8 +21,11 @@
         <input type="text" name="body" id="body" required />
         <br>
 
-        <input type="submit" value="Submit" />
+        <button type="submit">Submit</button>
     </form>
 </body>
+
+<!-- insert footer -->
+<%- include("./partials/footer.ejs") %>
 
 </html>
