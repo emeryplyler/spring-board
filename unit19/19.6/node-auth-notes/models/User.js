@@ -2,6 +2,8 @@
 const mongoose = require("mongoose");
 const { isEmail } = require("validator"); // third-party email validation function
 
+// define schema:
+
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -16,6 +18,24 @@ const userSchema = new mongoose.Schema({
         minlength: [6, "Password must be at least 6 characters"] // minimum length of password
     }
 });
+
+
+// attach some hook functions to the user schema:
+
+// function that will be called after a doc is saved to db
+userSchema.post('save', function (doc, next) {
+    console.log('new user was created and saved', doc);
+    next(); // if the post function has two parameters, you have to call next() and the second parameter has to be 'next'
+});
+
+// function that will be called right before doc is saved to db
+// function is not anonymous arrow function because we want to use the keyword 'this'
+userSchema.pre('save', function () {
+    console.log('user about to be created and saved', this); // output local instance of saved user
+});
+
+
+// create new model:
 
 // collection will be called "users"; the name of the model here must be "user", singular
 const User = mongoose.model('user', userSchema);
