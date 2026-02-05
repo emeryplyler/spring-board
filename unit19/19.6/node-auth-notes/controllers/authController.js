@@ -7,6 +7,16 @@ const handleErrors = (err) => {
     console.log(err.message, err.code);
     let errors = { email: "", password: "" };
 
+    // incorrect email error
+    if (err.message === "Email not registered") {
+        errors.email = "No user with that email was found";
+    }
+
+    // incorrect password error
+    if (err.message === "Incorrect password") {
+        errors.password = "Password is incorrect";
+    }
+
     // duplicate email error
     if (err.code === 11000) {
         errors.email = "That email is already registered";
@@ -67,9 +77,12 @@ module.exports.login_post = async (req, res) => {
         const user = await User.login(email, password); // call static login function from user model
         
         // at this point, the user should be correct; if it wasn't, we would be in the catch statement by now because we threw errors
+        const token = createToken(user._id); // make user token
+        res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 }); // create jwt with token
         res.status(200).json({ user: user._id });
     } 
     catch (error) {
-        res.status(400).json({});
+        const errors = handleErrors(error);
+        res.status(400).json({errors});
     }
 }
