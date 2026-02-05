@@ -29,12 +29,10 @@ userSchema.pre('save', async function () {
     // encrypt password before saving
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
-    console.log('user about to be created and saved', this); // output local instance of saved user
 });
 
 // function that will be called after a doc is saved to db
 userSchema.post('save', function (doc, next) {
-    console.log('new user was created and saved', doc);
     next(); // if the post function has two parameters, you have to call next() and the second parameter has to be 'next'
 });
 

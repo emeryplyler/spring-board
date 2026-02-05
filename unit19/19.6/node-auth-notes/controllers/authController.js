@@ -1,4 +1,6 @@
 const User = require("../models/User"); // import user model
+const jwt = require("jsonwebtoken");
+require('dotenv').config({quiet: true});
 
 // error handling function
 const handleErrors = (err) => {
@@ -23,6 +25,14 @@ const handleErrors = (err) => {
     return errors;
 }
 
+const maxAge = 24 * 60 * 60; // 24 hrs, in seconds
+// json web token maker function
+const createToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: maxAge
+    });
+}
+
 module.exports.signup_get = (req, res) => {
     res.render('signup'); // render the signup page
 }
@@ -36,8 +46,13 @@ module.exports.signup_post = async (req, res) => {
 
     try {
         const user = await User.create({ email, password }); // create() is async, so this whole function must be async
+
+        // log in user after making account
+        const token = createToken(user._id); // pass in the id of new user object
+        res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 }); // use cookieparser method and pass in the new token
+
         // use .json() to send back a json object
-        res.status(201).json(user); // send json version of newly saved user
+        res.status(201).json({ user: user._id }); // send json version of newly saved user
     }
     catch (err) {
         const errors = handleErrors(err);
