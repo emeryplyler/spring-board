@@ -86,3 +86,8 @@ module.exports.login_post = async (req, res) => {
         res.status(400).json({errors});
     }
 }
+
+module.exports.logout_get = async (req, res) => {
+    res.cookie("jwt", "", { maxAge: 1 }); // set the jwt to an empty string, then it just expires instantly, basically deleting it and signing the user out
+    res.redirect('/'); // redirect user to homepage, now logged out
+}
