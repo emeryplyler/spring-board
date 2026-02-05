@@ -37,6 +37,25 @@ userSchema.post('save', function (doc, next) {
 });
 
 
+// add static method to log user in
+userSchema.statics.login = async function(email, password) {
+    // look for user's email in the db
+    const user = await this.findOne({ email }); // in this case, there's no instance of user; 'this' refers to User, the model
+    if (user) {
+        // compare passwords
+        const auth = await bcrypt.compare(password, user.password); // bcrypt will re-hash the entered password and see if they could match
+        if (auth) {
+            return user;
+        }
+        // password didn't match, but email did
+        throw Error("Incorrect password");
+    }
+
+    // user doesn't exist
+    throw Error("Email not registered");
+}
+
+
 // create new model:
 
 // collection will be called "users"; the name of the model here must be "user", singular

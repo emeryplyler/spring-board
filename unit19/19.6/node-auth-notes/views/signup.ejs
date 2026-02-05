@@ -17,9 +17,15 @@
 
 <script>
     const form = document.querySelector('form');
+    const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
 
     form.addEventListener('submit', async (ev) => {
         ev.preventDefault();
+
+        // reset errors from last time, if they exist
+        emailError.textContent = "";
+        passwordError.textContent = "";
 
         // get values
         const email = form.email.value; // form.name.value retrieves current value of input field
@@ -32,6 +38,14 @@
                 body: JSON.stringify({ email: email, password }), // email and password field and value have same name, you can combine them into one
                 headers: { "Content-Type": "application/json" }
             });
+            const data = await res.json(); // will either be user's information or an error json object
+            if (data.errors) {
+                emailError.textContent = data.errors.email;
+                passwordError.textContent = data.errors.password;
+            }
+            if (data.user) {
+                location.assign("/"); // information was good; redirect to homepage
+            }
         } 
         catch (error) {
             console.log(error);

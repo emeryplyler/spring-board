@@ -16,16 +16,41 @@
 
 <script>
     const form = document.querySelector('form');
+    const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
 
-    form.addEventListener('submit', (ev) => {
+    form.addEventListener('submit', async (ev) => {
         ev.preventDefault();
+
+        // reset errors from last time, if they exist
+        emailError.textContent = "";
+        passwordError.textContent = "";
 
         // get values
         const email = form.email.value; // form.name.value retrieves current value of input field
         const password = form.password.value;
-        console.log(email, password)
+        
+        try {
+            // use fetch to call the post method we wrote for the route /signup, signup_post()
+            const res = await fetch("/login", {
+                method: "POST",
+                body: JSON.stringify({ email: email, password }), // email and password field and value have same name, you can combine them into one
+                headers: { "Content-Type": "application/json" }
+            });
+            const data = await res.json(); // will either be user's information or an error json object
+            if (data.errors) {
+                emailError.textContent = data.errors.email;
+                passwordError.textContent = data.errors.password;
+            }
+            if (data.user) {
+                location.assign("/"); // information was good; redirect to homepage
+            }
+        } 
+        catch (error) {
+            console.log(error);
+        }
+
     });
-    
 </script>
 
 <%- include('partials/footer'); -%>

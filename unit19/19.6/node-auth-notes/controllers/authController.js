@@ -61,8 +61,15 @@ module.exports.signup_post = async (req, res) => {
 }
 
 module.exports.login_post = async (req, res) => {
-    // console.log(req.body);
     const { email, password } = req.body; // destructure object containing these two properties
-    console.log(email, password);
-    res.send("user login");
+    
+    try {
+        const user = await User.login(email, password); // call static login function from user model
+        
+        // at this point, the user should be correct; if it wasn't, we would be in the catch statement by now because we threw errors
+        res.status(200).json({ user: user._id });
+    } 
+    catch (error) {
+        res.status(400).json({});
+    }
 }
