@@ -32,7 +32,6 @@ router.get("/:id", async function (req, res, next) {
 });
 
 /** POST /   bookData => {book: newBook}  */
-// TODO: validate()
 router.post("/", async function (req, res, next) {
   try {
     // validate data using bookSchema (regular)
@@ -55,8 +54,17 @@ router.post("/", async function (req, res, next) {
 
 router.put("/:isbn", async function (req, res, next) {
   try {
+    // validate data using bookSchema for updates only
+    const valid = validate(req.body, bookSchemaUpdate);
+    if (!valid) {
+      // data invalid; return an ExpressError
+      return next({
+        message: valid.errors,
+        status: 400
+      });
+    }
     const book = await Book.update(req.params.isbn, req.body);
-    return res.json({ book });
+    return res.status(200).json({ book });
   } catch (err) {
     return next(err);
   }
