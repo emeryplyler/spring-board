@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bookstore.com/book.schema.json",
+  "title": "Book",
+  "description": "Books in the express bookstore",
+  "type": "object",
+  "properties": {
+    "isbn": {
+      "$id": "/isbn",
+      "type": "string"
+    },
+    "amazon_url": {
+      "$id": "/amazon_url",
+      "type": "string"
+    },
+    "author": {
+      "$id": "/author",
+      "type": "string"
+    },
+    "language": {
+      "$id": "/language",
+      "type": "string"
+    },
+    "pages": {
+      "$id": "/pages",
+      "type": "integer"
+    },
+    "publisher": {
+      "$id": "/publisher",
+      "type": "string"
+    },
+    "title": {
+      "$id": "/title",
+      "type": "string"
+    },
+    "year": {
+      "$id": "/year",
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": ["author", "language", "pages", "title", "year"]
+}

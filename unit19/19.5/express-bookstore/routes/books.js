@@ -1,6 +1,11 @@
 const express = require("express");
 const Book = require("../models/book");
 
+// import JSONSchema and schemas
+const { validate } = require("jsonschema");
+const bookSchema = require("../schemas/bookSchema.json");
+const bookSchemaUpdate = require("../schemas/bookSchemaUpdate.json");
+
 const router = new express.Router();
 
 
@@ -27,9 +32,18 @@ router.get("/:id", async function (req, res, next) {
 });
 
 /** POST /   bookData => {book: newBook}  */
-
+// TODO: validate()
 router.post("/", async function (req, res, next) {
   try {
+    // validate data using bookSchema (regular)
+    const valid = validate(req.body, bookSchema);
+    if (!valid) {
+      // data invalid; return an ExpressError
+      return next({
+        message: valid.errors,
+        status: 400
+      });
+    }
     const book = await Book.create(req.body);
     return res.status(201).json({ book });
   } catch (err) {

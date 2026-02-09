@@ -7,7 +7,6 @@ const {DB_URI} = require("./config");
 let db = new Client({
   connectionString: DB_URI
 });
-
 db.connect();
 
 
