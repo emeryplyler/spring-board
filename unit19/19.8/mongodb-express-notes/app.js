@@ -92,3 +92,24 @@ app.delete("/books/:id", (req, res) => {
         res.status(500).json({ error: "Not a valid document ID" });
     }
 });
+
+// patch/update
+
+app.patch("/books/:id", (req, res) => {
+    const updates = req.body; // retrieve data to put over existing book data
+
+    if (ObjectId.isValid(req.params.id)) {
+        // valid id; check collection for corresponding book
+        db.collection("books")
+            .updateOne({ _id: new ObjectId(req.params.id) }, { $set: updates }) // mongodb will replace/update any fields included in the updates object
+            .then(result => {
+                res.status(200).json(result); // send result to client
+            })
+            .catch(err => {
+                res.status(500).json({ message: "Couldn't update that document" });
+            });
+    } else {
+        // object id was not valid; don't bother checking collection
+        res.status(500).json({ error: "Not a valid document ID" });
+    }
+})
