@@ -1,4 +1,5 @@
 const { MongoClient } = require("mongodb");
+require("dotenv").config({ quiet: true });
 
 let dbConnection; // initialize db connection variable in broad scope
 
@@ -6,7 +7,7 @@ let dbConnection; // initialize db connection variable in broad scope
 module.exports = {
     connectToDb: (callback) => {
         // connection string
-        MongoClient.connect("mongodb://localhost:27017/bookstore")
+        MongoClient.connect(process.env.MONGO_URI)
             .then((client) => {
                 dbConnection = client.db(); // set db connection
                 return callback(); // the function that is called right after the connection attempt
