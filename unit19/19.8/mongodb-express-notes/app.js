@@ -27,12 +27,17 @@ connectToDb((err) => {
 
 // get many
 app.get("/books", (req, res) => {
+    const page = req.query.p || 0; // page number, 0 if not specified
+    const booksPerPage = 3;
+
     let books = [];
 
     db.collection("books")
         .find() // returns a cursor pointing to a set of documents; with no arguments, points to entire collection
-        // note; mongodb fetches documents in little batches of 100 or so
+        // note; mongodb fetches documents in little batches of 100 or so maximum
         .sort({ author: 1 }) // sort by author name
+        .skip(page * booksPerPage) // skip books according to page number; if 0, skip nothing
+        .limit(booksPerPage) // return the three books on that page
         .forEach(book => books.push(book)) // add all books in batch to the array
         .then(() => {
             res.status(200).json(books);
