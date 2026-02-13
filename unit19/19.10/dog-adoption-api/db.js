@@ -1,19 +1,12 @@
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
 require("dotenv").config({ quiet: true });
 
-let dbConnection;
 
-module.exports = {
-    connectToDb: (callback) => {
-        MongoClient.connect(process.env.MONGODB_URI)
-            .then((client) => {
-                dbConnection = client.db(); // set db connection
-                return callback(); // return and call the callback function
-            })
-            .catch(err => {
-                console.log(err);
-                return callback(err); // return and call callback while passing in err
-            });
-    },
-    getDb: () => dbConnection // getter function for db connection
+module.exports.connectToDb = (app) => {
+    mongoose.connect(process.env.MONGODB_URI)
+        .then(() => {
+            app.listen(process.env.PORT);
+            console.log("App listening on port " + process.env.PORT);
+        })
+        .catch(err => console.log(err));
 };

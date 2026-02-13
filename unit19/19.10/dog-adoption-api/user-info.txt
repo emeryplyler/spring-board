@@ -1,0 +1,6 @@
+{
+    "email": "testtest@test.com",
+    "password": "password"
+}
+
+user account for test purposes

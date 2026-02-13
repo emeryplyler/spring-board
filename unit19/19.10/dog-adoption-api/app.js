@@ -1,5 +1,5 @@
 const express = require("express");
-const { connectToDb, getDb } = require("./db");
+const { connectToDb } = require("./db");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
@@ -8,20 +8,7 @@ const app = express();
 app.use(express.json());
 
 // database connection
-let db;
-connectToDb(err => {
-    // callback function for after connection attempt
-    if (!err) {
-        // success
-        app.listen(process.env.PORT, () => {
-            console.log("App listening on port " + process.env.PORT);
-        });
-        db = getDb(); // set db to database connection to use later
-    } else {
-        // failure; print error, if it exists
-        console.log(err);
-    }
-});
+connectToDb(app);
 
 // routes
 

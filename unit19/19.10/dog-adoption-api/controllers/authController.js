@@ -3,8 +3,6 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ quiet: true });
 
-const { getDb } = require("../db");
-
 
 // error handling
 const handleErrors = (err) => {
@@ -40,33 +38,30 @@ const handleErrors = (err) => {
     return errors;
 };
 
+
 // json web token maker
 const createToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: 3 * 24 * 60 * 60 });
 };
 
+
 // user registration
 module.exports.signup = async (req, res) => {
-    // const { email, password } = req.body; // retrieve info from request body
-    const user = req.body;
-    let db = getDb();
-    // TODO: figure out how to use this method with a schema!
+    const { email, password } = req.body; // retrieve info from request body
 
     try {
-        // const user = await User.create({ email, password }); // pass email in email field, password in password field
-        db.collection("users").insertOne(user)
-            .then(result => {
-                const token = createToken(user._id); // create token based on user's id
-                res.cookie("jwt", token, { maxAge: 3 * 24 * 60 * 60 * 1000, httpOnly: true }); // keep token as cookie
+        // call mongoose method create()
+        const user = await User.create({ email, password }); // pass email in email field, password in password field
+        const token = createToken(user._id); // create token based on user's id
+        res.cookie("jwt", token, { maxAge: 3 * 24 * 60 * 60 * 1000, httpOnly: true }); // keep token as cookie
 
-                res.status(201).json({ user: user._id }); // send back new user's id
-            })
-        
+        res.status(201).json({ user: user._id }); // send back new user's id
     } catch (error) {
         const errors = handleErrors(error);
         res.status(400).json({ errors }); // send back errors
     }
 };
+
 
 // user login
 module.exports.login = async (req, res) => {
@@ -79,11 +74,12 @@ module.exports.login = async (req, res) => {
         res.status(200).json({ user: user._id });
     } catch (error) {
         const errors = handleErrors(error);
-        res.status(400).json({errors});
+        res.status(400).json({ errors });
     }
 };
+
 
 // user logout
 module.exports.logout = (req, res) => {
     res.cookie("jwt", "", { maxAge: 1 }); // reset cookie
-}
+};
