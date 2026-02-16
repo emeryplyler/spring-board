@@ -41,7 +41,7 @@ const handleErrors = (err) => {
 
 // json web token maker
 const createToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: 3 * 24 * 60 * 60 });
+    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: 24 * 60 * 60 });
 };
 
 
@@ -53,7 +53,7 @@ module.exports.signup = async (req, res) => {
         // call mongoose method create()
         const user = await User.create({ email, password }); // pass email in email field, password in password field
         const token = createToken(user._id); // create token based on user's id
-        res.cookie("jwt", token, { maxAge: 3 * 24 * 60 * 60 * 1000, httpOnly: true }); // keep token as cookie
+        res.cookie("jwt", token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true }); // keep token as cookie
 
         res.status(201).json({ user: user._id }); // send back new user's id
     } catch (error) {
