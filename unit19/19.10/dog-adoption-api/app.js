@@ -1,6 +1,7 @@
 const express = require("express");
 const { connectToDb } = require("./db");
 const authRoutes = require("./routes/authRoutes");
+const dogRoutes = require("./routes/dogRoutes");
 
 const app = express();
 
@@ -15,9 +16,9 @@ connectToDb(app);
 // user routes
 app.use(authRoutes);
 
-// dog registration
-// dog adoption
-// dog remove
+// dog routes
+app.use(dogRoutes)
+
 // get user-registered dogs (filtering by status) (pagination)
 // get user's adopted dogs (pagination)
 
