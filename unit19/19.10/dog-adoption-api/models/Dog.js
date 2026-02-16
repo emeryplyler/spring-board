@@ -9,7 +9,7 @@ const dogSchema = new mongoose.Schema({
     },
     breed: String,
     description: String,
-    adopted_by: {
+    owner: {
         type: mongoose.Schema.ObjectId,
         ref: "User" // reference users table that the User schema is attached to
     }

@@ -38,6 +38,7 @@ module.exports.get_all = async (req, res) => {
 module.exports.delete = async (req, res) => {
     // dog id is passed through url params
     try {
+        // compare dog owner id and user id
         const result = await Dog.deleteOne({ _id: req.params.id });
         res.status(200).json(result);
     } catch (error) {

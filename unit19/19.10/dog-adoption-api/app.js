@@ -1,5 +1,6 @@
 const express = require("express");
 const { connectToDb } = require("./db");
+const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/authRoutes");
 const dogRoutes = require("./routes/dogRoutes");
 
@@ -7,6 +8,7 @@ const app = express();
 
 // middleware
 app.use(express.json());
+app.use(cookieParser());
 
 // database connection
 connectToDb(app);
