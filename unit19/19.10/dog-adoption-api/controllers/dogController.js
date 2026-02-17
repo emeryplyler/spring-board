@@ -81,3 +81,34 @@ module.exports.delete = async (req, res) => {
         res.status(500).json({ errors });
     }
 };
+
+module.exports.get_registered = async (req, res) => {
+    // pagination
+    const page = req.query.p || 0;
+    const perPage = 20;
+
+    try {
+        // query: find all where registered_by = user's id
+        const found = await Dog.find({ registered_by: res.locals.user.id }, null, { skip: page * perPage, limit: perPage }); // skip to current page, show page amount
+        res.status(200).json(found);
+
+    } catch (error) {
+        const errors = handleErrors(error);
+        res.status(500).json({ errors });
+    }
+}
+
+module.exports.get_adopts = async (req, res) => {
+    const page = req.query.p || 0;
+    const perPage = 20;
+
+    try {
+        // query: find all where owner = user's id
+        const found = await Dog.find({ owner: res.locals.user.id }, null, { skip: page * perPage, limit: perPage });
+        res.status(200).json(found);
+
+    } catch (error) {
+        const errors = handleErrors(error);
+        res.status(500).json({ errors });
+    }
+}
