@@ -11,7 +11,7 @@ router.post("/dogs", requireAuth, dogController.register);
 router.get("/dogs", dogController.get_all);
 // adopt dog by id (requires auth)
 router.patch("/dogs/:id", requireAuth, dogController.adopt)
-// delete a dog (requires auth) (requires ownership)
-router.delete("/dogs/:id", requireAuth, checkOwner, dogController.delete);
+// delete a dog (requires auth) (requires register)
+router.delete("/dogs/:id", requireAuth, dogController.delete);
 
 module.exports = router;

@@ -1,5 +1,0 @@
-{
-    "dog": "objectidgoeshere"
-}
-
-The request body for adopting a dog is just the dog's id; the user should be logged in

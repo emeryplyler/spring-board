@@ -12,6 +12,10 @@ const dogSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.ObjectId,
         ref: "User" // reference users table that the User schema is attached to
+    },
+    registered_by: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User"
     }
 });
 

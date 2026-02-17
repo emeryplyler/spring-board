@@ -12,7 +12,7 @@ module.exports.register = async (req, res) => {
 
     try {
         // try to insert into db
-        const dog = await Dog.create({ name, breed, description, owner });
+        const dog = await Dog.create({ name, breed, description, owner, registered_by: res.locals.user.id }); // registered by current user
 
         res.status(201).json({ dog: dog._id });
     } catch (error) {
@@ -39,9 +39,9 @@ module.exports.get_all = async (req, res) => {
 module.exports.adopt = async (req, res) => {
     // try to find dog in db
     try {
-        const found = await Dog.findOne({_id: req.params.id });
+        const found = await Dog.findOne({ _id: req.params.id });
         // is dog already adopted?
-        const owner = await User.findOne({_id: found.owner}); // try to verify dog's current owner; if fails, no current owner
+        const owner = await User.findOne({ _id: found.owner }); // try to verify dog's current owner; if fails, no current owner
         if (owner) {
             res.status(400).json({ message: "That dog has already been adopted" });
         } else {
@@ -49,20 +49,31 @@ module.exports.adopt = async (req, res) => {
             const result = await Dog.updateOne({ _id: req.params.id }, { owner: res.locals.user.id });
             res.status(200).json(result);
         }
-        
-    
+
+
     } catch (error) {
         const errors = handleErrors(error);
         res.status(400).json({ errors });
     }
-}
+};
 
 module.exports.delete = async (req, res) => {
     // dog id is passed through url params
     try {
-        // compare dog owner id and user id
-        const result = await Dog.deleteOne({ _id: req.params.id });
-        res.status(200).json(result);
+        // is dog adopted?
+        const dog = await Dog.findById(req.params.id);
+        if (!dog.owner) {
+            // compare registered_by and current user
+            if (String(dog.registered_by) === res.locals.user.id) {
+                const result = await Dog.deleteOne({ _id: req.params.id });
+                res.status(200).json(result);
+            } else {
+                res.status(400).json({ message: "You can only remove dogs that you registered" });
+            }
+        } else {
+            res.status(400).json({ message: "You can only remove dogs that haven't been adopted" });
+        }
+
     } catch (error) {
         const errors = handleErrors(error);
         res.status(500).json({ errors });
