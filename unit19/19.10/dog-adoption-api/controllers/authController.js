@@ -70,7 +70,7 @@ module.exports.login = async (req, res) => {
     try {
         const user = await User.login(email, password); // call static method from User model to log in
         const token = createToken(user._id);
-        res.cookie("jwt", token, { maxAge: 3 * 24 * 60 * 60 * 1000, httpOnly: true });
+        res.cookie("jwt", token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
         res.status(200).json({ user: user._id });
     } catch (error) {
         const errors = handleErrors(error);
