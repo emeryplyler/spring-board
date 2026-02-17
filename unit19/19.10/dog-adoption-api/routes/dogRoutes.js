@@ -9,6 +9,8 @@ const router = Router();
 router.post("/dogs", requireAuth, dogController.register);
 // view all dogs
 router.get("/dogs", dogController.get_all);
+// adopt dog by id (requires auth)
+router.patch("/dogs/:id", requireAuth, dogController.adopt)
 // delete a dog (requires auth) (requires ownership)
 router.delete("/dogs/:id", requireAuth, checkOwner, dogController.delete);
 

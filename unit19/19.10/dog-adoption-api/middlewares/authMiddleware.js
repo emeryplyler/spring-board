@@ -12,17 +12,22 @@ const requireAuth = (req, res, next) => {
 
     if (token) {
         // verify token using secret
-        jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+        jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
             if (err) {
                 // couldn't verify token; don't continue
+                res.locals.user = null;
                 res.status(400).json({ message: "Couldn't verify user. Please log in" });
             } else {
+                // store user in locals for further use
+                let user = await User.findById(decodedToken.id);
+                res.locals.user = user;
                 next(); // continue on
             }
         });
 
     } else {
         // no token; don't continue
+        res.locals.user = null;
         res.status(400).json({ message: "Couldn't verify user. Please log in" });
     }
 };
