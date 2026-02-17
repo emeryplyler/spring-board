@@ -47,7 +47,9 @@ module.exports.adopt = async (req, res) => {
         } else {
             // set dog's owner to current user's id
             const result = await Dog.updateOne({ _id: req.params.id }, { owner: res.locals.user.id });
-            res.status(200).json(result);
+            const og_owner = await User.findById(found.registered_by) || null;
+            let thanks = " " + og_owner.email;
+            res.status(200).json({ message: "Thank you" + thanks + " for listing this dog!"});
         }
 
 
